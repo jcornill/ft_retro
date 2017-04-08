@@ -19,7 +19,7 @@ public:
 	static void PutChar(char c, int x, int y);
 
 	// Print string str at pos x, y
-	void PutStr(std::string str, int x, int y) const;
+	static void PutStr(std::string str, int x, int y);
 
 	// Erase char at pos x, y
 	static void Erase(int x, int y);
@@ -32,6 +32,8 @@ public:
 
 	// Refresh display (call at end of each frame)
 	static void Refresh();
+
+	static void UpdateScore();
 
 	static int lastKeyPressed;
 

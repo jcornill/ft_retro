@@ -64,7 +64,7 @@ void Game::GameLoop()
 		this->ProcessCollision();
 		Display::Refresh();
 		_end = clock();
-		unsigned int sleep = (5000 - (_end - _start));
+		unsigned int sleep = (7500 - (_end - _start));
 		usleep(sleep);
 	}
 }
@@ -91,7 +91,7 @@ void	Game::AddEntity(Entity *entity) {
 void	Game::Spawn() {
 	if (rand() % 42 == 21) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y);
+		Enemy *enemy = new Enemy(Display::sizeX - 1, y, '<', 50, 10, 250);
 		AddEntity(enemy);
 	}
 }
@@ -112,4 +112,10 @@ void	Game::ProcessCollision() {
 int Game::GetScore() const
 {
 	return _score;
+}
+
+void Game::AddScore(int score)
+{
+	_score += score;
+	Display::UpdateScore();
 }

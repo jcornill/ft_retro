@@ -33,6 +33,7 @@ void LivingEntity::TakeDamage(int damage)
 	this->_hp -= damage;
 	if (this->_hp <= 0)
 	{
+		Game::Instance->AddScore(this->_maxHp);
 		Display::Erase(this->_posX, this->_posY);
 		Game::Instance->RemoveEntity(this);
 	}

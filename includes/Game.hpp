@@ -20,6 +20,8 @@ class Game {
 		void	ProcessCollision();
 		int 	GetScore() const;
 
+		void	AddScore(int score);
+
 		static Game *Instance;
 
 	private:

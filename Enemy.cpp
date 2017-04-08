@@ -10,7 +10,8 @@ Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
 
-Enemy::Enemy(int posX, int posY) : LivingEntity(posX, posY, '<', 10, 1) {
+Enemy::Enemy(int posX, int posY, char drawingChar, int hp, int damage, int attackSpeed) : LivingEntity(posX, posY, drawingChar, hp, damage), _attackSpeed(attackSpeed)
+{
 	this->_speed = 5;
 }
 
@@ -28,7 +29,7 @@ Enemy &	Enemy::operator=(Enemy const & rhs) {
 void Enemy::Colision(Entity *entity)
 {
 	Projectile* proj = dynamic_cast<Projectile*>(entity);
-	if (proj)
+	if (proj && proj->GetAlly())
 	{
 		int vDamage = proj->GetDamage();
 		Display::Erase(proj->GetPosX(), this->GetPosY());
@@ -39,18 +40,27 @@ void Enemy::Colision(Entity *entity)
 	Player* player = dynamic_cast<Player*>(entity);
 	if (player)
 	{
-		player->TakeDamage(this->_damage);
+		player->TakeDamage(this->_damage * 10);
 		Display::Erase(this->_posX, this->_posY);
 		Game::Instance->RemoveEntity(this);
 		return;
 	}
 }
 
+void Enemy::Shoot()
+{
+	if (this->_frameCount % this->_attackSpeed == 0)
+	{
+		Projectile *proj = new Projectile(this->_posX - 1, this->_posY, '-', 2, false, false, this->_damage);
+		Game::Instance->AddEntity(proj);
+	}
+}
+
 void Enemy::Update() {
 	this->_frameCount++;
-	if (this->_frameCount >= this->_speed)
+	this->Shoot();
+	if (this->_frameCount % this->_speed == 0)
 	{
-		this->_frameCount = 0;
 		this->_oldX = this->_posX;
 		this->_posX--;
 		this->_hasPosChanged = true;

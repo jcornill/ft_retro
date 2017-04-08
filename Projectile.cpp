@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Display.hpp"
 #include "Logger.hpp"
+#include "Player.hpp"
 
 Projectile::Projectile(void) {
 
@@ -45,16 +46,28 @@ void Projectile::Colision(Entity *entity)
 			Game::Instance->RemoveEntity(this);
 		}
 	}
+	else
+	{
+		Player* player = dynamic_cast<Player*>(entity);
+		if (player)
+		{
+			player->TakeDamage(this->_damage);
+			Display::Erase(this->_posX, this->_posY);
+			Game::Instance->RemoveEntity(this);
+		}
+	}
 }
 
 void Projectile::Update()
 {
 	this->_frameCount++;
-	if (this->_frameCount >= this->_speed)
+	if (this->_frameCount % this->_speed == 0)
 	{
-		this->_frameCount = 0;
 		this->_oldX = this->_posX;
-		this->_posX++;
+		if (this->_dir)
+			this->_posX++;
+		else
+			this->_posX--;
 		this->_hasPosChanged = true;
 		if (_hasPosChanged)
 		{
@@ -71,4 +84,9 @@ void Projectile::Update()
 			_hasPosChanged = false;
 		}
 	}
+}
+
+bool Projectile::GetAlly() const
+{
+	return this->_ally;
 }

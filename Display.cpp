@@ -1,5 +1,6 @@
 #include "Display.hpp"
 #include "Logger.hpp"
+#include "Game.hpp"
 #include <signal.h>
 #include <stdlib.h>
 
@@ -107,7 +108,7 @@ void Display::PutChar(char c, int x, int y)
 	move(Display::defaultPosY, Display::defaultPosX);
 }
 
-void Display::PutStr(std::string str, int x, int y) const
+void Display::PutStr(std::string str, int x, int y)
 {
 	mvprintw(y, x, str.c_str());
 }
@@ -126,4 +127,9 @@ void Display::Refresh()
 {
 //	Logger::LogToFile("Refreshing screen");
 	refresh();
+}
+
+void Display::UpdateScore()
+{
+	Display::PutStr(std::to_string(Game::Instance->GetScore()), 11, Display::sizeY + 2);
 }

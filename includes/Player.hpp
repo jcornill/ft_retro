@@ -7,7 +7,6 @@ class Player : public LivingEntity
 {
 
 public:
-    Player(void);
 	Player(int posX, int posY, char drawingChar, int hp, int damage, int attackSpeed, bool mainPlayer);
     Player(Player const &src);
     ~Player(void);
@@ -19,6 +18,7 @@ public:
 	void Shoot();
 
 private:
+	Player(void);
 	int _attackSpeed;
 	bool _mainPlayer;
 };

@@ -4,7 +4,7 @@
 #include "Projectile.hpp"
 #include "Game.hpp"
 
-Player::Player(void) : _attackSpeed(10)
+Player::Player(void)
 {
     return;
 }
@@ -31,9 +31,8 @@ Player &Player::operator=(Player const &rhs) {
 
 void Player::Shoot()
 {
-	if (this->_frameCount >= _attackSpeed)
+	if (this->_frameCount % _attackSpeed == 0)
 	{
-		this->_frameCount = 0;
 		Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 2, true, true, this->_damage);
 		Game::Instance->AddEntity(proj);
 	}
@@ -41,7 +40,15 @@ void Player::Shoot()
 
 void Player::Colision(Entity *entity)
 {
-
+	Projectile* proj = dynamic_cast<Projectile*>(entity);
+	if (proj && !proj->GetAlly())
+	{
+		int vDamage = proj->GetDamage();
+		Display::Erase(proj->GetPosX(), this->GetPosY());
+		Game::Instance->RemoveEntity(proj);
+		this->TakeDamage(vDamage);
+		return;
+	}
 }
 
 void Player::Update()
