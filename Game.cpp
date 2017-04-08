@@ -59,7 +59,7 @@ void Game::GameLoop()
 				entityList[i]->Update(); // Updating all entities
 			}
 		}
-		//this->Spawn();
+		this->Spawn();
 		Display::Refresh();
 		_end = clock();
 		unsigned int sleep = (5000 - (_end - _start));
@@ -88,7 +88,7 @@ void	Game::AddEntity(Entity *entity) {
 }
 
 void	Game::Spawn() {
-	if (rand() % 42 == 21) {
+	if (rand() % 420 == 42) {
 		Logger::LogToFile("Enemy spawn");
 		int y = rand() % Display::sizeY;
 		Enemy *enemy = new Enemy(Display::sizeX - 50, y);
