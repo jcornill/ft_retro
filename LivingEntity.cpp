@@ -2,7 +2,7 @@
 #include "Game.hpp"
 #include "Display.hpp"
 
-LivingEntity::LivingEntity(void) : Entity(), _hp(100), _maxHp(100), _damage(10) {
+LivingEntity::LivingEntity(void) : Entity(), _hp(100), _maxHp(100), _damage(5) {
 
 }
 
@@ -33,7 +33,7 @@ void LivingEntity::TakeDamage(int damage)
 	this->_hp -= damage;
 	if (this->_hp <= 0)
 	{
-		Display::Erase(this->_oldX, this->_oldY);
+		Display::Erase(this->_posX, this->_posY);
 		Game::Instance->RemoveEntity(this);
 	}
 }

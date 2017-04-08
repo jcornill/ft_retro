@@ -1,5 +1,6 @@
 #include "Enemy.hpp"
 #include "Projectile.hpp"
+#include "Player.hpp"
 
 Enemy::Enemy(void) {
 
@@ -29,8 +30,19 @@ void Enemy::Colision(Entity *entity)
 	Projectile* proj = dynamic_cast<Projectile*>(entity);
 	if (proj)
 	{
-		this->TakeDamage(proj->GetDamage());
+		int vDamage = proj->GetDamage();
+		Display::Erase(proj->GetPosX(), this->GetPosY());
+		Game::Instance->RemoveEntity(proj);
+		this->TakeDamage(vDamage);
+		return;
+	}
+	Player* player = dynamic_cast<Player*>(entity);
+	if (player)
+	{
+		player->TakeDamage(this->_damage);
+		Display::Erase(this->_posX, this->_posY);
 		Game::Instance->RemoveEntity(this);
+		return;
 	}
 }
 

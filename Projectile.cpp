@@ -41,6 +41,7 @@ void Projectile::Colision(Entity *entity)
 		if (enemy)
 		{
 			enemy->TakeDamage(this->_damage);
+			Display::Erase(this->_posX, this->_posY);
 			Game::Instance->RemoveEntity(this);
 		}
 	}
