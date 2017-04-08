@@ -55,7 +55,7 @@ void Player::Update()
 			this->_posY++;
 			this->_hasPosChanged = true;
 			break;
-		case (int)'s':
+		case 32:
 			this->_posY++;
 			this->_hasPosChanged = true;
 			break;

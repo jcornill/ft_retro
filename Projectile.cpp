@@ -1,4 +1,6 @@
 #include "Projectile.hpp"
+#include "Game.hpp"
+#include "Display.hpp"
 
 Projectile::Projectile(void) {
 
@@ -28,7 +30,7 @@ Projectile &	Projectile::operator=(Projectile const & rhs) {
 void Projectile::Update()
 {
 	this->_frameCount++;
-	if (this->_frameCount == _this->_speed)
+	if (this->_frameCount == this->_speed)
 	{
 		this->_frameCount = 0;
 		this->_oldX = this->_posX;
