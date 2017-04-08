@@ -13,9 +13,9 @@ Projectile::Projectile(Projectile const & src) {
 }
 
 Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage ) :
-Entity(posX, posY, drawingChar), _dir(dir), _ally(ally), _damage(damage)
+Entity(posX, posY, drawingChar, speed, ally), _dir(dir), _damage(damage)
 {
-	this->_speed = speed;
+
 }
 
 Projectile::~Projectile(void) {
@@ -74,7 +74,15 @@ void Projectile::Update()
 			if (Display::IsInMap(this->_posX, this->_posY))
 			{
 				Display::Erase(this->_oldX, this->_oldY);
+				if (this->_ally)
+					attron(COLOR_PAIR(3));
+				else
+					attron(COLOR_PAIR(2));
 				Display::PutChar(_drawingChar, this->_posX, this->_posY);
+				if (this->_ally)
+					attroff(COLOR_PAIR(3));
+				else
+					attroff(COLOR_PAIR(2));
 			}
 			else
 			{
@@ -84,9 +92,4 @@ void Projectile::Update()
 			_hasPosChanged = false;
 		}
 	}
-}
-
-bool Projectile::GetAlly() const
-{
-	return this->_ally;
 }

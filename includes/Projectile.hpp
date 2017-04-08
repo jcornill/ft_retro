@@ -12,11 +12,9 @@ class Projectile : public Entity {
 		void Update();
 		void Colision(Entity *entity);
 		int GetDamage() const;
-		bool GetAlly() const;
 	private:
 		Projectile(void);
 		bool _dir;
-		bool _ally;
 		int _damage;
 };
 

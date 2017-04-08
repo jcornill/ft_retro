@@ -34,6 +34,8 @@ public:
 	static void Refresh();
 
 	static void UpdateScore();
+	static void UpdateLife();
+	static void UpdateBomb();
 
 	static int lastKeyPressed;
 

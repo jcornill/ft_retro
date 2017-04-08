@@ -4,7 +4,7 @@
 class Entity {
 	public:
 		Entity(void);
-		Entity(int posX, int posY, char drawingChar);
+		Entity(int posX, int posY, char drawingChar, int speed, bool _ally);
 		Entity(Entity const & src);
 		virtual ~Entity(void);
 		Entity & operator=(Entity const & rhs);
@@ -15,6 +15,9 @@ class Entity {
 		int GetPosX() const;
 		int GetPosY() const;
 
+		bool GetCollide() const;
+		bool GetAlly() const;
+
 	protected:
 		int		_posX;
 		int		_posY;
@@ -24,6 +27,8 @@ class Entity {
 		char	_drawingChar;
 		int		_speed;
 		int		_frameCount;
+		bool	_isCollide;
+		bool	_ally;
 };
 
 #endif

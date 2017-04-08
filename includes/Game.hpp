@@ -1,8 +1,9 @@
 #ifndef GAME_HPP
 # define GAME_HPP
-# define NB_ENTITY 100
+# define NB_ENTITY 1000
 # include "Entity.hpp"
 # include "Enemy.hpp"
+# include "Player.hpp"
 # include <ctime>
 
 class Game {
@@ -21,8 +22,11 @@ class Game {
 		void	QueryInput();
 		bool	IsKeyPressed(int key);
 		int 	GetScore() const;
+		void	RemoveAllEntities();
 
 		void	AddScore(int score);
+		void	StopGame();
+		Player *GetPlayer();
 
 		static Game *Instance;
 
@@ -33,6 +37,8 @@ class Game {
 		bool	keys[256];
 		clock_t _start;
 		clock_t _end;
+		bool _stop;
+		int _gameFrame;
 };
 
 #endif

@@ -10,9 +10,10 @@ Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
 
-Enemy::Enemy(int posX, int posY, char drawingChar, int hp, int damage, int attackSpeed) : LivingEntity(posX, posY, drawingChar, hp, damage), _attackSpeed(attackSpeed)
+Enemy::Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed) :
+LivingEntity(posX, posY, drawingChar, speed, ally, hp, damage), _attackSpeed(attackSpeed)
 {
-	this->_speed = 5;
+
 }
 
 Enemy::~Enemy(void) {

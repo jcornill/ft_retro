@@ -26,6 +26,7 @@ void DrawRect(int px, int py, int sx, int sy)
 void resizeHandler(int px)
 {
 	px = 0;
+	Game::Instance->StopGame();
 	Logger::LogToFile("Win resized");
 }
 
@@ -47,8 +48,15 @@ Display::Display(int pSizeX, int pSizeY)
 	timeout(1);
 	curs_set(0);
 	start_color();
-	init_color(COLOR_RED, 150, 150, 150);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_color(COLOR_CYAN, 150, 150, 150);
+	init_pair(1, COLOR_CYAN, COLOR_BLACK);
+	init_color(COLOR_RED, 900, 100, 100);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_color(COLOR_GREEN, 50, 600, 50);
+	init_pair(3, COLOR_GREEN, COLOR_BLACK);
+	cbreak();
+	mousemask(BUTTON1_PRESSED, NULL);
+	keypad(stdscr, TRUE);
 	noecho();
 	Display::sizeX = pSizeX;
 	Display::sizeY = pSizeY;
@@ -65,6 +73,9 @@ Display::Display(int pSizeX, int pSizeY)
 		Display::PutChar('-', i, pSizeY);
 	}
 	Display::PutStr("Score : ", 2, pSizeY + 2);
+	Display::PutStr("Life : ", 18, pSizeY + 2);
+	Display::PutStr("Bomb(SPACE) : ", 35, pSizeY + 2);
+	Display::PutStr("Use 'q' to quit", 51, pSizeY + 2);
 	Logger::LogToFile("Ncurse finish loading");
     return;
 }
@@ -131,4 +142,18 @@ void Display::Refresh()
 void Display::UpdateScore()
 {
 	Display::PutStr(std::to_string(Game::Instance->GetScore()), 11, Display::sizeY + 2);
+}
+
+void Display::UpdateLife()
+{
+	Player * player = Game::Instance->GetPlayer();
+	if (player)
+		Display::PutStr(player->GetStatus(), 26, Display::sizeY + 2);
+}
+
+void Display::UpdateBomb()
+{
+	Player * player = Game::Instance->GetPlayer();
+	if (player)
+		Display::PutStr(std::to_string(player->GetBomb()), 49, Display::sizeY + 2);
 }

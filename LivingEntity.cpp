@@ -6,8 +6,8 @@ LivingEntity::LivingEntity(void) : Entity(), _hp(100), _maxHp(100), _damage(5) {
 
 }
 
-LivingEntity::LivingEntity(int posX, int posY, char drawingChar, int hp, int damage) :
-	Entity(posX, posY, drawingChar), _hp(hp), _maxHp(hp), _damage(damage) {
+LivingEntity::LivingEntity(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage) :
+	Entity(posX, posY, drawingChar, speed, ally), _hp(hp), _maxHp(hp), _damage(damage) {
 
 }
 
@@ -37,4 +37,19 @@ void LivingEntity::TakeDamage(int damage)
 		Display::Erase(this->_posX, this->_posY);
 		Game::Instance->RemoveEntity(this);
 	}
+}
+
+int LivingEntity::GetHp() const
+{
+	return this->_hp;
+}
+
+int LivingEntity::GetMaxHp() const
+{
+	return this->_maxHp;
+}
+
+int LivingEntity::GetDamage() const
+{
+	return this->_damage;
 }

@@ -9,11 +9,14 @@ class LivingEntity : public Entity {
 		LivingEntity & operator=(LivingEntity const & rhs);
 
 		void	Shoot();
-		void	TakeDamage(int damage);
+		virtual void	TakeDamage(int damage);
+		int		GetHp() const;
+		int		GetMaxHp() const;
+		int		GetDamage() const;
 
 	protected:
 		LivingEntity(void);
-		LivingEntity(int posX, int posY, char drawingChar, int hp, int damage);
+		LivingEntity(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage);
 		int _hp;
 		int _maxHp;
 		int _damage;

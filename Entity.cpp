@@ -7,8 +7,10 @@ Entity::Entity(void) : _posX(1), _posY(1), _oldX(1), _oldY(1), _hasPosChanged(fa
 	Display::PutChar(_drawingChar, this->_posX, this->_posY);
 }
 
-Entity::Entity(int posX, int posY, char drawingChar) :
-_posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false), _drawingChar(drawingChar), _frameCount(0)
+Entity::Entity(int posX, int posY, char drawingChar, int speed, bool ally) :
+_posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false),
+_drawingChar(drawingChar), _speed(speed), _frameCount(0), _isCollide(true),
+_ally(ally)
 {
 	Display::PutChar(_drawingChar, this->_posX, this->_posY);
 }
@@ -38,4 +40,14 @@ int Entity::GetPosX() const
 int Entity::GetPosY() const
 {
 	return this->_posY;
+}
+
+bool Entity::GetCollide() const
+{
+	return this->_isCollide;
+}
+
+bool Entity::GetAlly() const
+{
+	return this->_ally;
 }

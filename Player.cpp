@@ -14,8 +14,11 @@ Player::Player(Player const &src) {
     return;
 }
 
-Player::Player(int posX, int posY, char drawingChar, int hp, int damage, int attackSpeed, bool mainPlayer) :
-	LivingEntity(posX, posY, drawingChar, hp, damage), _attackSpeed(attackSpeed), _mainPlayer(mainPlayer) {
+Player::Player(int posX, int posY, char drawingChar, bool ally, int hp, int damage, int attackSpeed, bool mainPlayer) :
+	LivingEntity(posX, posY, drawingChar, 0, ally, hp, damage), _attackSpeed(attackSpeed), _mainPlayer(mainPlayer)
+	, _bomb(3)
+{
+		//Display::UpdateLife();
 }
 
 Player::~Player(void) {
@@ -27,6 +30,12 @@ Player &Player::operator=(Player const &rhs) {
 
     }
     return *this;
+}
+
+void Player::TakeDamage(int damage)
+{
+	LivingEntity::TakeDamage(damage);
+	Display::UpdateLife();
 }
 
 void Player::Shoot()
@@ -44,10 +53,18 @@ void Player::Colision(Entity *entity)
 	if (proj && !proj->GetAlly())
 	{
 		int vDamage = proj->GetDamage();
-		Display::Erase(proj->GetPosX(), this->GetPosY());
+		Display::Erase(proj->GetPosX(), proj->GetPosY());
 		Game::Instance->RemoveEntity(proj);
 		this->TakeDamage(vDamage);
 		return;
+	}
+	Enemy* enemy = dynamic_cast<Enemy*>(entity);
+	if (enemy)
+	{
+		int vDamage = enemy->GetDamage() * 10;
+		Display::Erase(enemy->GetPosX(), enemy->GetPosY());
+		Game::Instance->RemoveEntity(enemy);
+		this->TakeDamage(vDamage);
 	}
 }
 
@@ -57,34 +74,62 @@ void Player::Update()
 	this->_frameCount++;
 	this->_oldX = this->_posX;
 	this->_oldY = this->_posY;
-	if (Game::Instance->IsKeyPressed('d')) {
-		this->_posX++;
-		this->_hasPosChanged = true;
-	}
-	if (Game::Instance->IsKeyPressed('a')) {
-		this->_posX--;
-		this->_hasPosChanged = true;
-	}
-	if (Game::Instance->IsKeyPressed('w')) {
-		this->_posY--;
-		this->_hasPosChanged = true;
-	}
-	if (Game::Instance->IsKeyPressed('s')) {
-		this->_posY++;
-		this->_hasPosChanged = true;
-	}
-	if (_hasPosChanged)
+	if (_mainPlayer)
 	{
-		if (Display::IsInMap(this->_posX, this->_posY))
-		{
-			Display::Erase(this->_oldX, this->_oldY);
-			Display::PutChar(_drawingChar, this->_posX, this->_posY);
+		if (Game::Instance->IsKeyPressed('d')) {
+			this->_posX++;
+			this->_hasPosChanged = true;
 		}
-		else
-		{
-			this->_posX = this->_oldX;
-			this->_posY = this->_oldY;
+		else if (Game::Instance->IsKeyPressed('a')) {
+			this->_posX--;
+			this->_hasPosChanged = true;
 		}
-		_hasPosChanged = false;
+		else if (Game::Instance->IsKeyPressed('w')) {
+			this->_posY--;
+			this->_hasPosChanged = true;
+		}
+		else if (Game::Instance->IsKeyPressed('s')) {
+			this->_posY++;
+			this->_hasPosChanged = true;
+		}
+		else if (Game::Instance->IsKeyPressed(32) && this->_bomb > 0)
+		{
+			this->_bomb--;
+			Display::UpdateBomb();
+			Game::Instance->RemoveAllEntities();
+		}
 	}
+	// MEVENT event;
+	// getmouse(&event);
+	// if (event.x != 0 && event.y != 0)
+	// {
+	// 	this->_posX = event.x;
+	// 	this->_posY = event.y;
+	// }
+	if (Display::IsInMap(this->_posX, this->_posY))
+	{
+		Display::Erase(this->_oldX, this->_oldY);
+		Display::PutChar(_drawingChar, this->_posX, this->_posY);
+	}
+	else
+	{
+		this->_posX = this->_oldX;
+		this->_posY = this->_oldY;
+	}
+	if (this->_hasPosChanged)
+		this->_hasPosChanged = false;
+}
+
+std::string Player::GetStatus() const
+{
+	std::string result;
+	result += std::to_string(this->_hp);
+	result += "/";
+	result += std::to_string(this->_maxHp);
+	return result;
+}
+
+int Player::GetBomb()
+{
+	return this->_bomb;
 }

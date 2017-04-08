@@ -1,13 +1,13 @@
 #include "Game.hpp"
-#include "Player.hpp"
 #include "Display.hpp"
 #include "Logger.hpp"
+#include "Star.hpp"
 
 #include <unistd.h>
 
 Game *Game::Instance = new Game();
 
-Game::Game(void) : _score(0)
+Game::Game(void) : _score(0), _stop(false), _gameFrame(0)
 {
 	Logger::LogToFile("Game is loading");
 
@@ -19,7 +19,7 @@ Game::Game(void) : _score(0)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(2, Display::sizeY / 2, '>', 300, 20, 10, true);
+	Player *player = new Player(2, Display::sizeY / 2, '>', true, 300, 20, 10, true);
 	entityList[0] = player;
 }
 
@@ -32,8 +32,22 @@ Game::~Game(void) {
 	for (int i = 0; i < NB_ENTITY; ++i)
 	{
 		if (entityList[i]) {
-			Logger::LogToFile(i);
 			delete entityList[i];
+			entityList[i] = 0;
+		}
+	}
+}
+
+void Game::RemoveAllEntities()
+{
+	for (int i = 0; i < NB_ENTITY; ++i)
+	{
+		if (entityList[i]) {
+			if (entityList[i]->GetAlly())
+				continue;
+			Display::Erase(entityList[i]->GetPosX(), entityList[i]->GetPosY());
+			delete entityList[i];
+			entityList[i] = 0;
 		}
 	}
 }
@@ -49,11 +63,14 @@ void Game::GameLoop()
 {
 	Logger::LogToFile("Game loop started");
 	srand(time(NULL));
+	Display::UpdateScore();
+	Display::UpdateLife();
+	Display::UpdateBomb();
 	while (1)
 	{
 		_start = clock();
-		// Just here to break game loop when press ESC
-		if (keys[27]) {
+		// Just here to break game loop when press Q
+		if (keys[113]) {
 			break ;
 		}
 		for (int i = 0; i < NB_ENTITY; ++i)
@@ -70,6 +87,8 @@ void Game::GameLoop()
 		_end = clock();
 		unsigned int sleep = (7500 - (_end - _start));
 		usleep(sleep);
+		if (this->_stop)
+			break;
 	}
 }
 
@@ -78,6 +97,10 @@ void	Game::RemoveEntity(Entity *entity) {
 		if (entityList[i] == entity) {
 			delete entityList[i];
 			entityList[i] = 0;
+			if (i == 0)
+			{
+				this->_stop = true;
+			}
 		}
 	}
 }
@@ -93,10 +116,17 @@ void	Game::AddEntity(Entity *entity) {
 }
 
 void	Game::Spawn() {
-	if (rand() % 42 == 21) {
+	this->_gameFrame++;
+	int Difficulty = 0; //(int)((float)this->_gameFrame / 500.0f);
+	if (rand() % 21 == 0) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y, '<', 50, 10, 250);
+		Enemy *enemy = new Enemy(Display::sizeX - 1, y, '<', 5, false, 50 + (Difficulty * 10), 10 + Difficulty, 250 - (Difficulty * 10));
 		AddEntity(enemy);
+	}
+	if (rand() % 10 == 1) {
+		int y = (rand() % (Display::sizeY - 1)) + 1;
+		Star *star = new Star(Display::sizeX - 1, y, 'o', 0);
+		AddEntity(star);
 	}
 }
 
@@ -104,7 +134,8 @@ void	Game::ProcessCollision() {
 	for (int i = 0; i < NB_ENTITY; ++i) {
 		for (int j = i; j < NB_ENTITY; ++j) {
 			if (entityList[i] != NULL && entityList[j] != NULL) {
-				if (entityList[i]->GetPosX() == entityList[j]->GetPosX()
+				if (entityList[i]->GetCollide() && entityList[j]->GetCollide() &&
+				entityList[i]->GetPosX() == entityList[j]->GetPosX()
 						&& entityList[i]->GetPosY() == entityList[j]->GetPosY()) {
 					entityList[i]->Colision(entityList[j]);
 				}
@@ -145,4 +176,14 @@ void Game::AddScore(int score)
 {
 	_score += score;
 	Display::UpdateScore();
+}
+
+Player *Game::GetPlayer()
+{
+	return (Player*)entityList[0];
+}
+
+void Game::StopGame()
+{
+	this->_stop = true;
 }
