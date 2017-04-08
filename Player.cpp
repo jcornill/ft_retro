@@ -2,6 +2,7 @@
 #include "Display.hpp"
 #include "Logger.hpp"
 #include "Projectile.hpp"
+#include "Game.hpp"
 
 Player::Player(void) {
     return;
@@ -26,6 +27,7 @@ Player &Player::operator=(Player const &rhs) {
 void Player::Shoot()
 {
 	Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 1, true, true, this->_damage);
+	Game::Instance->AddEntity(proj);
 }
 
 void Player::Update()

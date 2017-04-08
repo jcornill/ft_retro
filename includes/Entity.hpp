@@ -19,6 +19,7 @@ class Entity {
 		bool	_hasPosChanged;
 		char	_drawingChar;
 		bool	_speed;
+		int		_frameCount;
 };
 
 #endif

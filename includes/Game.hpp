@@ -18,6 +18,8 @@ class Game {
 		void	RemoveEntity(Entity *entity);
 		void	Spawn();
 
+		static Game *Instance;
+
 	private:
 		int _score;
 		// Array de pointeur sur entity

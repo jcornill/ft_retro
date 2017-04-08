@@ -5,6 +5,8 @@
 
 #include <unistd.h>
 
+Game *Game::Instance = new Game();
+
 Game::Game(void) : _score(0)
 {
 	Logger::LogToFile("Game is loading");
