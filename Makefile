@@ -35,7 +35,7 @@ nf:
 	clang++ -o $(NAME) $(INCLUDE) *.cpp -lncurses
 
 nfm: nf
-	rm log.txt
+	rm -f log.txt
 	@echo "==========PROG=========="
 	@./$(NAME)
 	cat log.txt
