@@ -8,7 +8,7 @@ Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
 
-Enemy::Enemy(int posX, int posY) : LivingEntity(posX, posY, false) {
+Enemy::Enemy(int posX, int posY) : LivingEntity(posX, posY, '<') {
 
 }
 
