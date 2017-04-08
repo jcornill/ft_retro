@@ -21,45 +21,10 @@ Entity::~Entity(void) {
 
 Entity &	Entity::operator=(Entity const & rhs) {
 	if (this != &rhs){
-		// Don't use getters and setters here
-		// direct use this->_pos = rhs._pos
-		this->SetPosX(rhs.GetPosX());
-		this->SetPosY(rhs.GetPosY());
-		this->SetSizeX(rhs.GetSizeX());
-		this->SetSizeY(rhs.GetSizeY());
+		this->_posX = rhs._posX;
+		this->_posY = rhs._posY;
+		this->_sizeX = rhs._sizeX;
+		this->_sizeY = rhs._sizeY;
 	}
 	return (*this);
-}
-
-//TODO: Delete getters/setters (cf .hpp)
-int		Entity::GetPosX() const {
-	return (this->_posX);
-}
-
-void	Entity::SetPosX(int value) {
-	this->_posX = value;
-}
-
-int		Entity::GetPosY() const {
-	return (this->_posY);
-}
-
-void	Entity::SetPosY(int value) {
-	this->_posY = value;
-}
-
-int		Entity::GetSizeX() const {
-	return (this->_sizeX);
-}
-
-void	Entity::SetSizeX(int value) {
-	this->_sizeX = value;
-}
-
-int		Entity::GetSizeY() const {
-	return (this->_sizeY);
-}
-
-void	Entity::SetSizeY(int value) {
-	this->_sizeY = value;
 }

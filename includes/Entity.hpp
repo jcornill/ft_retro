@@ -9,27 +9,15 @@ class Entity {
 		virtual ~Entity(void);
 		Entity & operator=(Entity const & rhs);
 
-		// TODO:Delete getters/setters
-		// Pas besoin des getter et setter ici
-		// On veut pas pouvoir modifie sa taille ou sa position de l'exterieur
-		int		GetPosX() const;
-		void	SetPosX(int value);
-		int		GetPosY() const;
-		void	SetPosY(int value);
-		int		GetSizeX() const;
-		void	SetSizeX(int value);
-		int		GetSizeY() const;
-		void	SetSizeY(int value);
-
 		virtual void Update() = 0; // Called every frame from game
 
 	protected:
-		int _posX;
-		int _posY;
-		int _sizeX;
-		int _sizeY;
-		bool _hasPosChanged;
-		char _drawingChar;
+		int		_posX;
+		int		_posY;
+		bool	_hasPosChanged;
+		char	_drawingChar;
+		bool	_right;
+		bool	_speed;
 };
 
 #endif
