@@ -14,7 +14,7 @@ Projectile::Projectile(Projectile const & src) {
 Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage ) :
 Entity(posX, posY, drawingChar), _dir(dir), _ally(ally), _damage(damage)
 {
-
+	this->_speed = speed;
 }
 
 Projectile::~Projectile(void) {

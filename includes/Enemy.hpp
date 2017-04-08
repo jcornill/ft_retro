@@ -1,5 +1,7 @@
 #ifndef ENEMY_HPP
 # define ENEMY_HPP
+# include "Game.hpp"
+# include "Display.hpp"
 # include "Entity.hpp"
 # include "LivingEntity.hpp"
 
@@ -12,6 +14,8 @@ class Enemy : public LivingEntity {
 		Enemy & operator=(Enemy const & rhs);
 
 		void Update();
+	private:
+		bool _dir;
 };
 
 #endif

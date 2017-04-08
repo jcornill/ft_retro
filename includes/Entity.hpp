@@ -18,7 +18,7 @@ class Entity {
 		int		_oldY;
 		bool	_hasPosChanged;
 		char	_drawingChar;
-		bool	_speed;
+		int		_speed;
 		int		_frameCount;
 };
 
