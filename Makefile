@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME=ft_retro
-SRC=main.cpp Display.cpp Entity.cpp Game.cpp MoveableEntity.cpp Player.cpp Logger.cpp
+SRC=main.cpp Display.cpp Entity.cpp Game.cpp MoveableEntity.cpp Player.cpp Logger.cpp Enemy.cpp
 OBJ=$(SRC:.cpp=.o)
 FLAG=-Wall -Wextra -Werror
 INCLUDE=-I includes
