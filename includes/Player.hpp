@@ -14,6 +14,7 @@ public:
 
 	// Update process player movement
 	void Update();
+	void Shoot();
 
 private:
 

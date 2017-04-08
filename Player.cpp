@@ -22,6 +22,12 @@ Player &Player::operator=(Player const &rhs) {
     return *this;
 }
 
+void Player::Shoot()
+{
+	Projectile proj = new Projectile(this->_posX + 1, this->_posY, '-', 1, true, true, this->_damage);
+	
+}
+
 void Player::Update()
 {
 	int i = Display::GetKey();

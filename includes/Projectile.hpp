@@ -4,11 +4,15 @@
 
 class Projectile : public Entity {
 	public:
-		Projectile(void);
+		Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage);
 		Projectile(Projectile const & src);
-		Projectile(int damage, bool right);
 		~Projectile(void);
 		Projectile & operator=(Projectile const & rhs);
+	private:
+		Projectile(void);
+		bool _dir;
+		bool _ally;
+		int _damage;
 };
 
 #endif

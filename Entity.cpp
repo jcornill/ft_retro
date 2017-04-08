@@ -12,6 +12,11 @@ Entity::Entity(int posX, int posY, bool hasChanged) : _posX(posX), _posY(posY), 
 
 }
 
+Entity::Entity(int posX, int posY) : _posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false)
+{
+	
+}
+
 Entity::Entity(Entity const & src) {
 	*this = src;
 }

@@ -8,7 +8,9 @@ Projectile::Projectile(Projectile const & src) {
 	*this = src;
 }
 
-Projectile::Projectile(int damage, bool right) {
+Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage ) :
+Entity(posX, posY), _drawingChar(drawingChar), _dir(dir), _ally(ally), _damage(damage)
+{
 
 }
 

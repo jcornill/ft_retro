@@ -26,10 +26,8 @@ void DrawRect(int px, int py, int sx, int sy)
 
 void resizeHandler(int px)
 {
-	int mx, my;
-	getmaxyx(stdscr, my, mx);
-	if (mx < Display::sizeX || my < Display::sizeY)
-		exit(-1);
+	px = 0;
+	Logger::LogToFile("Win resized");
 }
 
 Display::Display(void)
@@ -60,16 +58,16 @@ Display::Display(int pSizeX, int pSizeY)
 	timeout(1);
 	curs_set(0);
 	noecho();
-	Display::sizeX = sizeX;
-	Display::sizeY = sizeY;
+	Display::sizeX = pSizeX;
+	Display::sizeY = pSizeY;
 	int mx, my;
 	getmaxyx(stdscr, my, mx);
-	if (mx < sizeX || my < sizeY)
+	if (mx < pSizeX || my < pSizeY)
 		this->_init = false;
 	else
 		this->_init = true;
 	signal(SIGWINCH, resizeHandler);
-	DrawRect(0, 0, sizeX, sizeY);
+	DrawRect(0, 0, pSizeX, pSizeY);
 	Logger::LogToFile("Ncurse finish loading");
     return;
 }
