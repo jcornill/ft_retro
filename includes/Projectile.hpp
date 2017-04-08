@@ -11,6 +11,7 @@ class Projectile : public Entity {
 
 		void Update();
 		void Colision(Entity *entity);
+		int GetDamage() const;
 	private:
 		Projectile(void);
 		bool _dir;

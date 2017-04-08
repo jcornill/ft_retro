@@ -28,6 +28,11 @@ Projectile &	Projectile::operator=(Projectile const & rhs) {
 	return (*this);
 }
 
+int Projectile::GetDamage() const
+{
+	return this->_damage;
+}
+
 void Projectile::Colision(Entity *entity)
 {
 	if (_ally)
@@ -35,7 +40,8 @@ void Projectile::Colision(Entity *entity)
 		Enemy* enemy = dynamic_cast<Enemy*>(entity);
 		if (enemy)
 		{
-			
+			enemy->TakeDamage(this->_damage);
+			Game::Instance->RemoveEntity(this);
 		}
 	}
 }

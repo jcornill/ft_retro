@@ -12,6 +12,7 @@ public:
     ~Player(void);
     Player &operator=(Player const &rhs);
 
+	void Colision(Entity *entity);
 	// Update process player movement
 	void Update();
 	void Shoot();

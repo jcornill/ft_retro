@@ -10,7 +10,7 @@ class Entity {
 		Entity & operator=(Entity const & rhs);
 
 		virtual void Update() = 0; // Called every frame from game
-		//virtual void Colision(Entity *entity) = 0;
+		virtual void Colision(Entity *entity) = 0;
 
 		int GetPosX() const;
 		int GetPosY() const;

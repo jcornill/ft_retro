@@ -14,6 +14,7 @@ class Enemy : public LivingEntity {
 		Enemy & operator=(Enemy const & rhs);
 
 		void Update();
+		void Colision(Entity *entity);
 	private:
 		bool _dir;
 };

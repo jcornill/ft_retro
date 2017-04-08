@@ -1,4 +1,5 @@
 #include "Enemy.hpp"
+#include "Projectile.hpp"
 
 Enemy::Enemy(void) {
 
@@ -21,6 +22,16 @@ Enemy &	Enemy::operator=(Enemy const & rhs) {
 
 	}
 	return (*this);
+}
+
+void Enemy::Colision(Entity *entity)
+{
+	Projectile* proj = dynamic_cast<Projectile*>(entity);
+	if (proj)
+	{
+		this->TakeDamage(proj->GetDamage());
+		Game::Instance->RemoveEntity(this);
+	}
 }
 
 void Enemy::Update() {

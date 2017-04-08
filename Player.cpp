@@ -35,6 +35,11 @@ void Player::Shoot()
 	}
 }
 
+void Player::Colision(Entity *entity)
+{
+
+}
+
 void Player::Update()
 {
 	this->Shoot();
