@@ -45,3 +45,14 @@ class
 
 	Pojectile : Entity, MoveableEntity
 		constructor(damage, bool right);
+
+
+		Entity
+			Collision(Entity *entity);
+
+		Game
+			ProcessColision();
+			for i:0, nbEntity
+				for j:i, nbEntity
+					if (entityList[i] == entityList[j])
+						entityList[i].Colision(entityList[j]);
