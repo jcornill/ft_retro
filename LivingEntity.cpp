@@ -6,8 +6,8 @@ LivingEntity::LivingEntity(void) : Entity(), _hp(100), _maxHp(100), _damage(10) 
 
 }
 
-LivingEntity::LivingEntity(int posX, int posY, char drawingChar) :
-	Entity(posX, posY, drawingChar) {
+LivingEntity::LivingEntity(int posX, int posY, char drawingChar, int hp, int damage) :
+	Entity(posX, posY, drawingChar), _hp(hp), _maxHp(hp), _damage(damage) {
 
 }
 

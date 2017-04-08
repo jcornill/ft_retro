@@ -9,7 +9,7 @@ Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
 
-Enemy::Enemy(int posX, int posY) : LivingEntity(posX, posY, '<') {
+Enemy::Enemy(int posX, int posY) : LivingEntity(posX, posY, '<', 10, 1) {
 	this->_speed = 5;
 }
 

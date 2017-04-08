@@ -13,7 +13,7 @@ class LivingEntity : public Entity {
 
 	protected:
 		LivingEntity(void);
-		LivingEntity(int posX, int posY, char _drawingChar);
+		LivingEntity(int posX, int posY, char drawingChar, int hp, int damage);
 		int _hp;
 		int _maxHp;
 		int _damage;
