@@ -8,15 +8,8 @@ class LivingEntity : public Entity {
 		virtual ~LivingEntity(void);
 		LivingEntity & operator=(LivingEntity const & rhs);
 
-		void Shoot();
-		void TakeDamage(int damage);
-
-		int		GetHp() const;
-		void	SetHp(int value);
-		int		MaxHp() const;
-		void	SetMaxHp(int value);
-		int		GetDamage() const;
-		void	SetDamage(int value);
+		void	Shoot();
+		void	TakeDamage(int damage);
 
 	protected:
 		LivingEntity(void);

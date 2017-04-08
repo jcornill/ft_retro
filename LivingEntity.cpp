@@ -19,31 +19,9 @@ LivingEntity::~LivingEntity(void) {
 
 LivingEntity &	LivingEntity::operator=(LivingEntity const & rhs) {
 	if (this != &rhs){
-
+		this->_hp = rhs._hp;
+		this->_maxHp = rhs._maxHp;
+		this->_damage = rhs._damage;
 	}
 	return (*this);
-}
-
-int		LivingEntity::GetHp() const {
-	return (_hp);
-}
-
-void	LivingEntity::SetHp(int value) {
-	this->_hp = value;
-}
-
-int		LivingEntity::MaxHp() const {
-	return (_maxHp);
-}
-
-void LivingEntity::SetMaxHp(int value) {
-	this->_maxHp = value;
-}
-
-int		LivingEntity::GetDamage() const {
-	return (_damage);
-}
-
-void	LivingEntity::SetDamage(int value) {
-	this->_damage = value;
 }
