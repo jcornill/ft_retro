@@ -5,8 +5,6 @@
 #include <stdlib.h>
 
 int Display::lastKeyPressed = -1;
-int Display::defaultPosX = 0;
-int Display::defaultPosY = 25;
 
 int Display::sizeX = 210;
 int Display::sizeY = 42;
@@ -97,7 +95,6 @@ Display &Display::operator=(Display const &rhs) {
 
 int Display::GetKey()
 {
-	move(Display::defaultPosY, Display::defaultPosX);
 	Display::lastKeyPressed = getch();
 	return Display::lastKeyPressed;
 }
@@ -105,7 +102,6 @@ int Display::GetKey()
 void Display::PutChar(char c, int x, int y)
 {
 	mvaddch(y, x, c);
-	move(Display::defaultPosY, Display::defaultPosX);
 }
 
 void Display::PutStr(std::string str, int x, int y)

@@ -43,8 +43,6 @@ public:
 	static int sizeY;
 private:
 	Display(void);
-	static int defaultPosX;
-	static int defaultPosY;
 	bool _init;
 };
 

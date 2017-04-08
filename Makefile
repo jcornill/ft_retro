@@ -6,12 +6,12 @@
 #    By: jcornill <jcornill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/24 18:32:00 by jcornill          #+#    #+#              #
-#    Updated: 2017/04/08 14:53:39 by jcornill         ###   ########.fr        #
+#    Updated: 2017/04/08 18:27:04 by jcornill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=ft_retro
-SRC=main.cpp Display.cpp Entity.cpp Game.cpp MoveableEntity.cpp Player.cpp Logger.cpp Enemy.cpp
+SRC=main.cpp Display.cpp Entity.cpp Game.cpp Player.cpp Logger.cpp Enemy.cpp
 OBJ=$(SRC:.cpp=.o)
 FLAG=-Wall -Wextra -Werror
 INCLUDE=-I includes
