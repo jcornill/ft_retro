@@ -9,10 +9,7 @@ Star::Star(void) {
 Star::Star(int posX, int posY, char drawingChar, int speed)
 : Entity(posX, posY, drawingChar)
 {
-	this->_speed = speed;
-	drawStr += "\e[100m";
-	drawStr += this->_drawingChar;
-	drawStr += "\e[49m";
+	this->_movSpeed = rand() % 3 + 1;
 }
 
 Star::Star(Star const &src) {
@@ -24,7 +21,7 @@ Star::~Star(void) {
     return;
 }
 
-void Star::Colision()
+void Star::Colision(Entity *entity)
 {
 
 }
@@ -39,16 +36,21 @@ Star &Star::operator=(Star const &rhs) {
 void Star::Update()
 {
 	this->_frameCount++;
-	if (this->_frameCount % this->_speed == 0)
+	if (1)
 	{
-		this->_posX--;
+		this->_oldX = this->_posX;
+		this->_oldY = this->_posY;
+		this->_posX -= this->_movSpeed;
 		if (Display::IsInMap(this->_posX, this->_posY))
 		{
 			Display::Erase(this->_oldX, this->_oldY);
-			Display::PutStr(drawStr, this->_posX, this->_posY);
+			attron(COLOR_PAIR(1));
+			Display::PutChar(this->_drawingChar, this->_posX, this->_posY);
+			attroff(COLOR_PAIR(1));
 		}
 		else
 		{
+			Display::Erase(this->_oldX, this->_oldY);
 			Game::Instance->RemoveEntity(this);
 		}
 	}

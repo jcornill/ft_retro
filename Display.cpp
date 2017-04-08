@@ -46,6 +46,9 @@ Display::Display(int pSizeX, int pSizeY)
 	clear();
 	timeout(1);
 	curs_set(0);
+	start_color();
+	init_color(COLOR_RED, 150, 150, 150);
+	init_pair(1, COLOR_RED, COLOR_BLACK);
 	noecho();
 	Display::sizeX = pSizeX;
 	Display::sizeY = pSizeY;
