@@ -55,43 +55,36 @@ void Player::Update()
 {
 	this->Shoot();
 	this->_frameCount++;
-	int i = Display::GetKey();
-	if (i != -1)
+	this->_oldX = this->_posX;
+	this->_oldY = this->_posY;
+	if (Game::Instance->IsKeyPressed('d')) {
+		this->_posX++;
+		this->_hasPosChanged = true;
+	}
+	if (Game::Instance->IsKeyPressed('a')) {
+		this->_posX--;
+		this->_hasPosChanged = true;
+	}
+	if (Game::Instance->IsKeyPressed('w')) {
+		this->_posY--;
+		this->_hasPosChanged = true;
+	}
+	if (Game::Instance->IsKeyPressed('s')) {
+		this->_posY++;
+		this->_hasPosChanged = true;
+	}
+	if (_hasPosChanged)
 	{
-		this->_oldX = this->_posX;
-		this->_oldY = this->_posY;
-		switch (i)
+		if (Display::IsInMap(this->_posX, this->_posY))
 		{
-		case (int)'d':
-			this->_posX++;
-			this->_hasPosChanged = true;
-			break;
-		case (int)'a':
-			this->_posX--;
-			this->_hasPosChanged = true;
-			break;
-		case (int)'w':
-			this->_posY--;
-			this->_hasPosChanged = true;
-			break;
-		case (int)'s':
-			this->_posY++;
-			this->_hasPosChanged = true;
-			break;
+			Display::Erase(this->_oldX, this->_oldY);
+			Display::PutChar(_drawingChar, this->_posX, this->_posY);
 		}
-		if (_hasPosChanged)
+		else
 		{
-			if (Display::IsInMap(this->_posX, this->_posY))
-			{
-				Display::Erase(this->_oldX, this->_oldY);
-				Display::PutChar(_drawingChar, this->_posX, this->_posY);
-			}
-			else
-			{
-				this->_posX = this->_oldX;
-				this->_posY = this->_oldY;
-			}
-			_hasPosChanged = false;
+			this->_posX = this->_oldX;
+			this->_posY = this->_oldY;
 		}
+		_hasPosChanged = false;
 	}
 }

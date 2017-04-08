@@ -15,9 +15,11 @@ Game::Game(void) : _score(0)
 	{
 		entityList[i] = 0;
 	}
+	for (int i = 0; i < 256; ++i) {
+		keys[i] = false;
+	}
 
 	Player *player = new Player(2, Display::sizeY / 2, '>', 300, 20, 10, true);
-	//Player *player = new Player();
 	entityList[0] = player;
 }
 
@@ -51,8 +53,9 @@ void Game::GameLoop()
 	{
 		_start = clock();
 		// Just here to break game loop when press ESC
-		if (Display::lastKeyPressed == 27)
-			break;
+		if (keys[27]) {
+			break ;
+		}
 		for (int i = 0; i < NB_ENTITY; ++i)
 		{
 			if (entityList[i])
@@ -62,6 +65,7 @@ void Game::GameLoop()
 		}
 		this->Spawn();
 		this->ProcessCollision();
+		this->QueryInput();
 		Display::Refresh();
 		_end = clock();
 		unsigned int sleep = (7500 - (_end - _start));
@@ -107,6 +111,29 @@ void	Game::ProcessCollision() {
 			}
 		}
 	}
+}
+
+void 	Game::QueryInput() {
+	for (int i = 0; i < 256; i++ ) {
+		this->keys[i] = false;
+	}
+
+	int keyPressed[3];
+	keyPressed[0] = Display::GetKey();
+	//keyPressed[1] = Display::GetKey();
+	//keyPressed[2] = Display::GetKey();
+	for (int i = 0; i < 1; i++) {
+		if (keyPressed[i] != -1) {
+			this->keys[keyPressed[i]] = true;
+		}
+	}
+}
+
+bool	Game::IsKeyPressed(int key) {
+	if (key >= 0 && key <= 256) {
+		return (this->keys[key]);
+	}
+	return (false);
 }
 
 int Game::GetScore() const
