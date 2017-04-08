@@ -60,6 +60,7 @@ void Game::GameLoop()
 			}
 		}
 		this->Spawn();
+		this->ProcessCollision();
 		Display::Refresh();
 		_end = clock();
 		unsigned int sleep = (5000 - (_end - _start));
@@ -91,6 +92,17 @@ void	Game::Spawn() {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
 		Enemy *enemy = new Enemy(Display::sizeX - 1, y);
 		AddEntity(enemy);
+	}
+}
+
+void	Game::ProcessCollision() {
+	for (int i = 0; i < NB_ENTITY; ++i) {
+		for (int j = i; j < NB_ENTITY; ++j) {
+			if (entityList[i]->GetPosX() == entityList[j]->GetPosX()
+					&& entityList[i]->GetPosY() == entityList[j]->GetPosY()) {
+				entityList[i]->Colision(entityList[j]);
+			}
+		}
 	}
 }
 

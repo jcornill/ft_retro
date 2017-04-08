@@ -17,6 +17,7 @@ class Game {
 		void	AddEntity(Entity *entity);
 		void	RemoveEntity(Entity *entity);
 		void	Spawn();
+		void	ProcessCollision();
 		int 	GetScore() const;
 
 		static Game *Instance;
