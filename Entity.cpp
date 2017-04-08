@@ -6,7 +6,7 @@ Entity::Entity(void) : _posX(1), _posY(1), _hasPosChanged(false), _drawingChar('
 	//Logger::LogToFile("Creating Entity");
 }
 
-Entity::Entity(int posX, int posY, int sizeX, int sizeY, bool hasChanged) : _posX(posX), _posY(posY), _hasPosChanged(hasChanged){
+Entity::Entity(int posX, int posY, bool hasChanged) : _posX(posX), _posY(posY), _hasPosChanged(hasChanged){
 
 }
 
