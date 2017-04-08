@@ -5,7 +5,7 @@
 class LivingEntity : public Entity {
 	public:
 		LivingEntity(void);
-		LivingEntity(int posX, int posY, int sizeX, int sizeY, bool hasChanged);
+		LivingEntity(int posX, int posY, bool hasChanged);
 		LivingEntity(LivingEntity const & src);
 		virtual ~LivingEntity(void);
 		LivingEntity & operator=(LivingEntity const & rhs);

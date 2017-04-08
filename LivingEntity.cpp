@@ -4,8 +4,8 @@ LivingEntity::LivingEntity(void) : Entity(), _hp(100), _maxHp(100), _damage(10) 
 
 }
 
-LivingEntity::LivingEntity(int posX, int posY, int sizeX, int sizeY, bool hasChanged) :
-	Entity(posX, posY, sizeX, sizeY, hasChanged) {
+LivingEntity::LivingEntity(int posX, int posY, bool hasChanged) :
+	Entity(posX, posY, hasChanged) {
 
 }
 
