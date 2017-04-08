@@ -17,7 +17,7 @@ public:
 	void Shoot();
 
 private:
-
+	int _attackSpeed;
 };
 
 #endif

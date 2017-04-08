@@ -4,7 +4,8 @@
 #include "Projectile.hpp"
 #include "Game.hpp"
 
-Player::Player(void) {
+Player::Player(void) : _attackSpeed(10)
+{
     return;
 }
 
@@ -26,12 +27,18 @@ Player &Player::operator=(Player const &rhs) {
 
 void Player::Shoot()
 {
-	Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 3, true, true, this->_damage);
-	Game::Instance->AddEntity(proj);
+	if (this->_frameCount >= _attackSpeed)
+	{
+		this->_frameCount = 0;
+		Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 2, true, true, this->_damage);
+		Game::Instance->AddEntity(proj);
+	}
 }
 
 void Player::Update()
 {
+	this->Shoot();
+	this->_frameCount++;
 	int i = Display::GetKey();
 	if (i != -1)
 	{
@@ -54,9 +61,6 @@ void Player::Update()
 		case (int)'s':
 			this->_posY++;
 			this->_hasPosChanged = true;
-			break;
-		case 32:
-			this->Shoot();
 			break;
 		}
 		if (_hasPosChanged)
