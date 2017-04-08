@@ -56,8 +56,7 @@ void Player::Update()
 			this->_hasPosChanged = true;
 			break;
 		case 32:
-			this->_posY++;
-			this->_hasPosChanged = true;
+			this->Shoot();
 			break;
 		}
 		if (_hasPosChanged)
