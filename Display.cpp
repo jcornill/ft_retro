@@ -52,6 +52,15 @@ Display::Display(int pSizeX, int pSizeY)
     return;
 }
 
+bool Display::IsInMap(int x, int y)
+{
+	if (x <= 0 || x >= Display::sizeX)
+		return false;
+	if (y <= 0 || y >= Display::sizeY)
+		return false;
+	return true;
+}
+
 Display::Display(Display const &src) {
     *this = src;
     return;

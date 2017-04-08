@@ -28,6 +28,9 @@ public:
 	// // Move the cursor to the position x, y
 	// void MoveCursor(int x, int y) const;
 
+	// Return false if the coord is not in the playable map
+	static bool IsInMap(int x, int y);
+
 	// Refresh display (call at end of each frame)
 	static void Refresh();
 

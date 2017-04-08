@@ -25,26 +25,42 @@ Player &Player::operator=(Player const &rhs) {
 void Player::Update()
 {
 	int i = Display::GetKey();
-	Display::Erase(this->_posX, this->_posY);
-	switch (i)
+	if (i != -1)
 	{
-	case (int)'d':
-		this->_posX++;
-		break;
-	case (int)'a':
-		this->_posX--;
-		break;
-	case (int)'w':
-		this->_posY--;
-		break;
-	case (int)'s':
-		this->_posY++;
-		break;
-	}
-	this->_hasPosChanged = true;
-	if (_hasPosChanged)
-	{
-		Display::PutChar(_drawingChar, this->_posX, this->_posY);
-		_hasPosChanged = false;
+		this->_oldX = this->_posX;
+		this->_oldY = this->_posY;
+		switch (i)
+		{
+		case (int)'d':
+			this->_posX++;
+			this->_hasPosChanged = true;
+			break;
+		case (int)'a':
+			this->_posX--;
+			this->_hasPosChanged = true;
+			break;
+		case (int)'w':
+			this->_posY--;
+			this->_hasPosChanged = true;
+			break;
+		case (int)'s':
+			this->_posY++;
+			this->_hasPosChanged = true;
+			break;
+		}
+		if (_hasPosChanged)
+		{
+			if (Display::IsInMap(this->_posX, this->_posY))
+			{
+				Display::Erase(this->_oldX, this->_oldY);
+				Display::PutChar(_drawingChar, this->_posX, this->_posY);
+			}
+			else
+			{
+				this->_posX = this->_oldX;
+				this->_posY = this->_oldY;
+			}
+			_hasPosChanged = false;
+		}
 	}
 }

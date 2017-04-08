@@ -14,9 +14,10 @@ class Entity {
 	protected:
 		int		_posX;
 		int		_posY;
+		int		_oldX;
+		int		_oldY;
 		bool	_hasPosChanged;
 		char	_drawingChar;
-		bool	_right;
 		bool	_speed;
 };
 
