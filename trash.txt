@@ -1,0 +1,47 @@
+class
+
+	Display
+		ncurse function
+
+	Game
+		int score;
+		array entity[100]
+		Display
+		entity[0] = player
+		boucle sur chaque entity
+			update()
+
+	MoveableEntity
+		bool right or left
+		int speed // How many frame before moving
+		update // Redefine update from entity
+
+	Entity
+		draw is done in update
+		function update() // Function call every frame on all entity and redefined when needed by children
+		protected:
+			int posX
+			int posY
+			int sizeX;
+			int sizeY;
+			bool hasPosChanged
+		private:
+			char drawingChar // Char to draw the entity
+
+	LivingEntity : Entity
+	protected:
+		int hp;
+		int maxHp;
+		int damage;
+
+	public:
+		function shoot();
+		function => TakeDamage(int damage);
+
+	Enemy : LivingEntity, MoveableEntity
+
+	Player : LivingEntity
+		update // Redefine update from entity and process player movement
+
+	Pojectile : Entity, MoveableEntity
+		constructor(damage, bool right);

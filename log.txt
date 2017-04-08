@@ -1,0 +1,6 @@
+[08 April 12:06:52] Ncurse is loading
+[08 April 12:06:52] Ncurse finish loading
+[08 April 12:06:52] Game is loading
+[08 April 12:06:52] Game loop started
+[08 April 12:07:00] Game is unloading
+[08 April 12:07:00] unloading Ncurse
