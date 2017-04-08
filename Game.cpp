@@ -98,9 +98,11 @@ void	Game::Spawn() {
 void	Game::ProcessCollision() {
 	for (int i = 0; i < NB_ENTITY; ++i) {
 		for (int j = i; j < NB_ENTITY; ++j) {
-			if (entityList[i]->GetPosX() == entityList[j]->GetPosX()
-					&& entityList[i]->GetPosY() == entityList[j]->GetPosY()) {
-				entityList[i]->Colision(entityList[j]);
+			if (entityList[i] != NULL && entityList[j] != NULL) {
+				if (entityList[i]->GetPosX() == entityList[j]->GetPosX()
+						&& entityList[i]->GetPosY() == entityList[j]->GetPosY()) {
+					entityList[i]->Colision(entityList[j]);
+				}
 			}
 		}
 	}
