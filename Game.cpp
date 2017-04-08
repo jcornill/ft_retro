@@ -77,7 +77,6 @@ void	Game::RemoveEntity(Entity *entity) {
 }
 
 void	Game::AddEntity(Entity *entity) {
-	Logger::LogToFile("add entity");
 	for (int i = 0; i < NB_ENTITY; ++i) {
 		if (entityList[i] == 0) {
 			entityList[i] = entity;
@@ -88,10 +87,14 @@ void	Game::AddEntity(Entity *entity) {
 }
 
 void	Game::Spawn() {
-	if (rand() % 420 == 42) {
-		Logger::LogToFile("Enemy spawn");
-		int y = rand() % Display::sizeY;
-		Enemy *enemy = new Enemy(Display::sizeX - 50, y);
+	if (rand() % 42 == 21) {
+		int y = (rand() % (Display::sizeY - 1)) + 1;
+		Enemy *enemy = new Enemy(Display::sizeX - 1, y);
 		AddEntity(enemy);
 	}
+}
+
+int Game::GetScore() const
+{
+	return _score;
 }

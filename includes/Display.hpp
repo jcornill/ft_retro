@@ -7,7 +7,6 @@
 class Display {
 
 public:
-    Display(void);
 	Display(int pSizeX, int pSizeY);
     Display(Display const &src);
     ~Display(void);
@@ -41,6 +40,7 @@ public:
 	static int sizeX;
 	static int sizeY;
 private:
+	Display(void);
 	static int defaultPosX;
 	static int defaultPosY;
 	bool _init;

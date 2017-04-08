@@ -32,16 +32,6 @@ void resizeHandler(int px)
 
 Display::Display(void)
 {
-	Logger::LogToFile("Ncurse is loading");
-	initscr();
-	clear();
-	timeout(1);
-	curs_set(0);
-	noecho();
-	Display::sizeX = 210;
-	Display::sizeY = 42;
-	DrawRect(0, 0, sizeX, sizeY);
-	Logger::LogToFile("Ncurse finish loading");
     return;
 }
 
@@ -62,12 +52,17 @@ Display::Display(int pSizeX, int pSizeY)
 	Display::sizeY = pSizeY;
 	int mx, my;
 	getmaxyx(stdscr, my, mx);
-	if (mx < pSizeX || my < pSizeY)
+	if (mx <= pSizeX || my <= (pSizeY + 4))
 		this->_init = false;
 	else
 		this->_init = true;
 	signal(SIGWINCH, resizeHandler);
-	DrawRect(0, 0, pSizeX, pSizeY);
+	DrawRect(0, 0, pSizeX, pSizeY+4);
+	for (int i = 1; i < pSizeX; ++i)
+	{
+		Display::PutChar('-', i, pSizeY);
+	}
+	Display::PutStr("Score : ", 2, pSizeY + 2);
 	Logger::LogToFile("Ncurse finish loading");
     return;
 }
@@ -130,5 +125,5 @@ void Display::Erase(int x, int y)
 void Display::Refresh()
 {
 //	Logger::LogToFile("Refreshing screen");
-	//refresh();
+	refresh();
 }
