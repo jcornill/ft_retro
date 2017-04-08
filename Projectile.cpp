@@ -28,6 +28,18 @@ Projectile &	Projectile::operator=(Projectile const & rhs) {
 	return (*this);
 }
 
+void Projectile::Colision(Entity *entity)
+{
+	if (_ally)
+	{
+		Enemy* enemy = dynamic_cast<Enemy*>(entity);
+		if (enemy)
+		{
+			
+		}
+	}
+}
+
 void Projectile::Update()
 {
 	this->_frameCount++;

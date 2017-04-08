@@ -28,3 +28,14 @@ Entity &	Entity::operator=(Entity const & rhs) {
 	}
 	return (*this);
 }
+
+
+int Entity::GetPosX() const
+{
+	return this->_posX;
+}
+
+int Entity::GetPosY() const
+{
+	return this->_posY;
+}
