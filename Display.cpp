@@ -5,6 +5,23 @@ int Display::lastKeyPressed = -1;
 int Display::defaultPosX = 0;
 int Display::defaultPosY = 25;
 
+int Display::sizeX = 210;
+int Display::sizeY = 42;
+
+void DrawRect(int px, int py, int sx, int sy)
+{
+	for (int x = px; x <= sx; ++x)
+	{
+		for (int y = py; y <= sy; ++y)
+		{
+			if (y == 0 || y == sy)
+				Display::PutChar('*', x, y);
+			else if (x == 0 || x == sx)
+				Display::PutChar('*', x, y);
+		}
+	}
+}
+
 Display::Display(void)
 {
 	Logger::LogToFile("Ncurse is loading");
@@ -13,6 +30,24 @@ Display::Display(void)
 	timeout(1);
 	curs_set(0);
 	noecho();
+	Display::sizeX = 210;
+	Display::sizeY = 42;
+	DrawRect(0, 0, sizeX, sizeY);
+	Logger::LogToFile("Ncurse finish loading");
+    return;
+}
+
+Display::Display(int pSizeX, int pSizeY)
+{
+	Logger::LogToFile("Ncurse is loading");
+	initscr();
+	clear();
+	timeout(1);
+	curs_set(0);
+	noecho();
+	Display::sizeX = sizeX;
+	Display::sizeY = sizeY;
+	DrawRect(0, 0, sizeX, sizeY);
 	Logger::LogToFile("Ncurse finish loading");
     return;
 }
@@ -66,5 +101,5 @@ void Display::Erase(int x, int y)
 void Display::Refresh()
 {
 //	Logger::LogToFile("Refreshing screen");
-	refresh();
+	//refresh();
 }

@@ -8,6 +8,7 @@ class Display {
 
 public:
     Display(void);
+	Display(int pSizeX, int pSizeY);
     Display(Display const &src);
     ~Display(void);
     Display &operator=(Display const &rhs);
@@ -35,6 +36,8 @@ public:
 private:
 	static int defaultPosX;
 	static int defaultPosY;
+	static int sizeX;
+	static int sizeY;
 };
 
 #endif

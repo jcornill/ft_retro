@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 int main() {
-	Display nCurse = Display();
+	Display nCurse = Display(210, 42);
 	Game game = Game();
 	game.GameLoop();
 }
