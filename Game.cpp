@@ -16,7 +16,8 @@ Game::Game(void) : _score(0)
 		entityList[i] = 0;
 	}
 
-	Player *player = new Player();
+	Player *player = new Player(2, Display::sizeY / 2, '>', 300, 20, 10, true);
+	//Player *player = new Player();
 	entityList[0] = player;
 }
 

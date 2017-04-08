@@ -14,6 +14,10 @@ Player::Player(Player const &src) {
     return;
 }
 
+Player::Player(int posX, int posY, char drawingChar, int hp, int damage, int attackSpeed, bool mainPlayer) :
+	LivingEntity(posX, posY, drawingChar, hp, damage), _attackSpeed(attackSpeed), _mainPlayer(mainPlayer) {
+}
+
 Player::~Player(void) {
     return;
 }
