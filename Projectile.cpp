@@ -1,6 +1,7 @@
 #include "Projectile.hpp"
 #include "Game.hpp"
 #include "Display.hpp"
+#include "Logger.hpp"
 
 Projectile::Projectile(void) {
 
@@ -30,11 +31,12 @@ Projectile &	Projectile::operator=(Projectile const & rhs) {
 void Projectile::Update()
 {
 	this->_frameCount++;
-	if (this->_frameCount == this->_speed)
+	if (this->_frameCount >= this->_speed)
 	{
 		this->_frameCount = 0;
 		this->_oldX = this->_posX;
 		this->_posX++;
+		this->_hasPosChanged = true;
 		if (_hasPosChanged)
 		{
 			if (Display::IsInMap(this->_posX, this->_posY))
@@ -44,6 +46,7 @@ void Projectile::Update()
 			}
 			else
 			{
+				Display::Erase(this->_oldX, this->_oldY);
 				Game::Instance->RemoveEntity(this);
 			}
 			_hasPosChanged = false;

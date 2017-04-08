@@ -59,7 +59,7 @@ void Game::GameLoop()
 				entityList[i]->Update(); // Updating all entities
 			}
 		}
-		this->Spawn();
+		//this->Spawn();
 		Display::Refresh();
 		_end = clock();
 		unsigned int sleep = (5000 - (_end - _start));
