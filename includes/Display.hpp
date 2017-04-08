@@ -36,11 +36,14 @@ public:
 
 	static int lastKeyPressed;
 
+	bool IsInit();
+
+	static int sizeX;
+	static int sizeY;
 private:
 	static int defaultPosX;
 	static int defaultPosY;
-	static int sizeX;
-	static int sizeY;
+	bool _init;
 };
 
 #endif

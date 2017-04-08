@@ -1,5 +1,7 @@
 #include "Display.hpp"
 #include "Logger.hpp"
+#include <signal.h>
+#include <stdlib.h>
 
 int Display::lastKeyPressed = -1;
 int Display::defaultPosX = 0;
@@ -22,6 +24,14 @@ void DrawRect(int px, int py, int sx, int sy)
 	}
 }
 
+void resizeHandler(int px)
+{
+	int mx, my;
+	getmaxyx(stdscr, my, mx);
+	if (mx < Display::sizeX || my < Display::sizeY)
+		exit(-1);
+}
+
 Display::Display(void)
 {
 	Logger::LogToFile("Ncurse is loading");
@@ -37,6 +47,11 @@ Display::Display(void)
     return;
 }
 
+bool Display::IsInit()
+{
+	return _init;
+}
+
 Display::Display(int pSizeX, int pSizeY)
 {
 	Logger::LogToFile("Ncurse is loading");
@@ -47,6 +62,13 @@ Display::Display(int pSizeX, int pSizeY)
 	noecho();
 	Display::sizeX = sizeX;
 	Display::sizeY = sizeY;
+	int mx, my;
+	getmaxyx(stdscr, my, mx);
+	if (mx < sizeX || my < sizeY)
+		this->_init = false;
+	else
+		this->_init = true;
+	signal(SIGWINCH, resizeHandler);
 	DrawRect(0, 0, sizeX, sizeY);
 	Logger::LogToFile("Ncurse finish loading");
     return;

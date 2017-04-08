@@ -4,7 +4,7 @@
 
 Entity::Entity(void) : _posX(1), _posY(1), _oldX(1), _oldY(1), _hasPosChanged(false), _drawingChar('>')
 {
-
+	Display::PutChar(_drawingChar, this->_posX, this->_posY);
 }
 
 Entity::Entity(int posX, int posY, bool hasChanged) : _posX(posX), _posY(posY), _hasPosChanged(hasChanged)

@@ -6,7 +6,7 @@
 #    By: jcornill <jcornill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/24 18:32:00 by jcornill          #+#    #+#              #
-#    Updated: 2017/04/07 23:32:56 by jcornill         ###   ########.fr        #
+#    Updated: 2017/04/08 13:41:59 by jcornill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ m: $(NAME)
 
 save:fclean
 	git add --all
-	git commit -m "Autosaving piscine"
+	git commit -m "Autosaving rush"
 	git push
 
 all:$(NAME)
