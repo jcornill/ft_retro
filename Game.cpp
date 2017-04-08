@@ -5,6 +5,8 @@
 
 #include <unistd.h>
 
+Game *Game::Instance = new Game();
+
 Game::Game(void) : _score(0)
 {
 	Logger::LogToFile("Game is loading");
@@ -82,8 +84,7 @@ void	Game::AddEntity(Entity *entity) {
 			return ;
 		}
 	}
-	delete entityList[i];
-	entityList[i] = 0;
+	delete entity;
 }
 
 void	Game::Spawn() {
