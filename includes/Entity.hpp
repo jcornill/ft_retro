@@ -4,7 +4,7 @@
 class Entity {
 	public:
 		Entity(void);
-		Entity(int posX, int posY, char _drawingChar);
+		Entity(int posX, int posY, char drawingChar);
 		Entity(Entity const & src);
 		virtual ~Entity(void);
 		Entity & operator=(Entity const & rhs);
