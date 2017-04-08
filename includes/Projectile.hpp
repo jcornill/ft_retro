@@ -8,6 +8,8 @@ class Projectile : public Entity {
 		Projectile(Projectile const & src);
 		~Projectile(void);
 		Projectile & operator=(Projectile const & rhs);
+		
+		void Update();
 	private:
 		Projectile(void);
 		bool _dir;

@@ -1,6 +1,7 @@
 #include "Player.hpp"
 #include "Display.hpp"
 #include "Logger.hpp"
+#include "Projectile.hpp"
 
 Player::Player(void) {
     return;
@@ -24,8 +25,7 @@ Player &Player::operator=(Player const &rhs) {
 
 void Player::Shoot()
 {
-	Projectile proj = new Projectile(this->_posX + 1, this->_posY, '-', 1, true, true, this->_damage);
-	
+	Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 1, true, true, this->_damage);
 }
 
 void Player::Update()

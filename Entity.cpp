@@ -7,14 +7,9 @@ Entity::Entity(void) : _posX(1), _posY(1), _oldX(1), _oldY(1), _hasPosChanged(fa
 	Display::PutChar(_drawingChar, this->_posX, this->_posY);
 }
 
-Entity::Entity(int posX, int posY, bool hasChanged) : _posX(posX), _posY(posY), _hasPosChanged(hasChanged)
+Entity::Entity(int posX, int posY, char drawingChar) : _posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false), _drawingChar(drawingChar)
 {
 
-}
-
-Entity::Entity(int posX, int posY) : _posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false)
-{
-	
 }
 
 Entity::Entity(Entity const & src) {

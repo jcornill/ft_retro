@@ -4,8 +4,6 @@
 
 class LivingEntity : public Entity {
 	public:
-		LivingEntity(void);
-		LivingEntity(int posX, int posY, bool hasChanged);
 		LivingEntity(LivingEntity const & src);
 		virtual ~LivingEntity(void);
 		LivingEntity & operator=(LivingEntity const & rhs);
@@ -21,6 +19,8 @@ class LivingEntity : public Entity {
 		void	SetDamage(int value);
 
 	protected:
+		LivingEntity(void);
+		LivingEntity(int posX, int posY, char _drawingChar);
 		int _hp;
 		int _maxHp;
 		int _damage;

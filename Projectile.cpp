@@ -9,7 +9,7 @@ Projectile::Projectile(Projectile const & src) {
 }
 
 Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage ) :
-Entity(posX, posY), _drawingChar(drawingChar), _dir(dir), _ally(ally), _damage(damage)
+Entity(posX, posY, drawingChar), _dir(dir), _ally(ally), _damage(damage)
 {
 
 }
@@ -23,4 +23,9 @@ Projectile &	Projectile::operator=(Projectile const & rhs) {
 
 	}
 	return (*this);
+}
+
+void Projectile::Update()
+{
+
 }
