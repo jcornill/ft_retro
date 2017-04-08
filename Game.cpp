@@ -5,8 +5,6 @@
 
 #include <unistd.h>
 
-Game *Game::Instance = new Game();
-
 Game::Game(void) : _score(0)
 {
 	Logger::LogToFile("Game is loading");
@@ -81,16 +79,18 @@ void	Game::AddEntity(Entity *entity) {
 	for (int i = 0; i < NB_ENTITY; ++i) {
 		if (entityList[i] == 0) {
 			entityList[i] = entity;
-			break;
+			return ;
 		}
 	}
+	delete entityList[i];
+	entityList[i] = 0;
 }
 
 void	Game::Spawn() {
 	if (rand() % 42 == 21) {
 		Logger::LogToFile("Enemy spawn");
 		int y = rand() % Display::sizeY;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y);
+		Enemy *enemy = new Enemy(Display::sizeX - 50, y);
 		AddEntity(enemy);
 	}
 }
