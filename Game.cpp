@@ -197,7 +197,7 @@ void	Game::AddEntity(Entity *entity) {
 void	Game::Spawn() {
 	this->_gameFrame++;
 	int Difficulty = 0; //(int)((float)this->_gameFrame / 500.0f);
-	if (rand() % 21 == 0) {
+	if (rand() % 42 == 0) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
 		Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (Difficulty * 10), 10 + Difficulty, 250 - (Difficulty * 10));
 		AddEntity(enemy);
