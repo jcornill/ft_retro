@@ -27,6 +27,14 @@ Entity &	Entity::operator=(Entity const & rhs) {
 	if (this != &rhs){
 		this->_posX = rhs._posX;
 		this->_posY = rhs._posY;
+		this->_oldX = rhs._oldX;
+		this->_oldY = rhs._oldY;
+		this->_hasPosChanged = rhs._hasPosChanged;
+		this->_drawingChar = rhs._drawingChar;
+		this->_speed = rhs._speed;
+		this->_frameCount = rhs._frameCount;
+		this->_isCollide = rhs._isCollide;
+		this->_ally = rhs._ally;
 	}
 	return (*this);
 }

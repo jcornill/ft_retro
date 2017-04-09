@@ -27,7 +27,22 @@ Player::~Player(void) {
 
 Player &Player::operator=(Player const &rhs) {
     if (this != &rhs) {
-
+		this->_attackSpeed = rhs._attackSpeed;
+		this->_mainPlayer = rhs._mainPlayer;
+		this->_bomb = rhs._bomb;
+		this->_hp = rhs._hp;
+		this->_maxHp = rhs._maxHp;
+		this->_damage = rhs._damage;
+		this->_posX = rhs._posX;
+		this->_posY = rhs._posY;
+		this->_oldX = rhs._oldX;
+		this->_oldY = rhs._oldY;
+		this->_hasPosChanged = rhs._hasPosChanged;
+		this->_drawingChar = rhs._drawingChar;
+		this->_speed = rhs._speed;
+		this->_frameCount = rhs._frameCount;
+		this->_isCollide = rhs._isCollide;
+		this->_ally = rhs._ally;
     }
     return *this;
 }
