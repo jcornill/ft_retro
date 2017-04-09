@@ -55,7 +55,19 @@ void Game::RemoveAllEntities()
 
 Game &	Game::operator=(Game const & rhs) {
 	if (this != &rhs){
-
+		this->_score = rhs._score;
+		for (int i = 0; i < NB_ENTITY; i++) {
+			this->entityList[i] = rhs.entityList[i];
+		}
+		for (int i = 0; i < 256; i++) {
+			this->keys[i] = rhs.keys[i];
+		}
+		this->_start = rhs._start;
+		this->_end = rhs._end;
+		this->_stop = rhs._stop;
+		this->_gameFrame = rhs._gameFrame;
+		this->_difficulty = rhs._difficulty;
+		this->_pause = rhs._pause;
 	}
 	return (*this);
 }
