@@ -51,6 +51,10 @@ Entity &	Entity::operator=(Entity const & rhs) {
 		this->_frameCount = rhs._frameCount;
 		this->_isCollide = rhs._isCollide;
 		this->_ally = rhs._ally;
+		for (int i = 0; i < NB_CHILD; i++) {
+			this->entitiesChild[i] = rhs.entitiesChild[i];
+		}
+		this->_nbChild = rhs._nbChild;
 	}
 	return (*this);
 }

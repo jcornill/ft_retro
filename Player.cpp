@@ -33,6 +33,7 @@ Player &Player::operator=(Player const &rhs) {
 		this->_attackSpeed = rhs._attackSpeed;
 		this->_mainPlayer = rhs._mainPlayer;
 		this->_bomb = rhs._bomb;
+		this->_bonusLevel = rhs._bonusLevel;
 		this->_hp = rhs._hp;
 		this->_maxHp = rhs._maxHp;
 		this->_damage = rhs._damage;
@@ -46,6 +47,10 @@ Player &Player::operator=(Player const &rhs) {
 		this->_frameCount = rhs._frameCount;
 		this->_isCollide = rhs._isCollide;
 		this->_ally = rhs._ally;
+		for (int i = 0; i < NB_CHILD; i++) {
+			this->entitiesChild[i] = rhs.entitiesChild[i];
+		}
+		this->_nbChild = rhs._nbChild;
     }
     return *this;
 }

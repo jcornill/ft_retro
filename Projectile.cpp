@@ -26,7 +26,23 @@ Projectile::~Projectile(void) {
 
 Projectile &	Projectile::operator=(Projectile const & rhs) {
 	if (this != &rhs){
-
+		this->_dir = rhs._dir;
+		this->_damage = rhs._damage;
+		this->_up = rhs._up;
+		this->_posX = rhs._posX;
+		this->_posY = rhs._posY;
+		this->_oldX = rhs._oldX;
+		this->_oldY = rhs._oldY;
+		this->_hasPosChanged = rhs._hasPosChanged;
+		this->_drawingChar = rhs._drawingChar;
+		this->_speed = rhs._speed;
+		this->_frameCount = rhs._frameCount;
+		this->_isCollide = rhs._isCollide;
+		this->_ally = rhs._ally;
+		for (int i = 0; i < NB_CHILD; i++) {
+			this->entitiesChild[i] = rhs.entitiesChild[i];
+		}
+		this->_nbChild = rhs._nbChild;
 	}
 	return (*this);
 }
