@@ -16,7 +16,7 @@ class Enemy : public LivingEntity {
 		void Update();
 		void Colision(Entity *entity);
 		void Shoot();
-	private:
+	protected:
 		int _attackSpeed;
 		int _shootType;
 };

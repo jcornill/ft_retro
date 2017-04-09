@@ -70,10 +70,11 @@ Display::Display(int pSizeX, int pSizeY)
 	{
 		Display::PutChar('-', i, pSizeY);
 	}
-	Display::PutStr("Score : ", 2, pSizeY + 2);
+	Display::PutStr("Score: ", 2, pSizeY + 2);
 	Display::PutStr("Life : ", 18, pSizeY + 2);
 	Display::PutStr("Bomb(SPACE) : ", 35, pSizeY + 2);
-	Display::PutStr("Use 'q' to quit", 51, pSizeY + 2);
+	Display::PutStr("| Use 'q' to quit", 51, pSizeY + 2);
+	Display::PutStr("| Use 'p' to pause", 69, pSizeY + 2);
 	Logger::LogToFile("Ncurse finish loading");
     return;
 }
@@ -139,14 +140,14 @@ void Display::Refresh()
 
 void Display::UpdateScore()
 {
-	Display::PutStr(std::to_string(Game::Instance->GetScore()), 11, Display::sizeY + 2);
+	Display::PutStr(std::to_string(Game::Instance->GetScore()), 9, Display::sizeY + 2);
 }
 
 void Display::UpdateLife()
 {
 	Player * player = Game::Instance->GetPlayer();
 	if (player)
-		Display::PutStr(player->GetStatus(), 26, Display::sizeY + 2);
+		Display::PutStr(player->GetStatus(), 25, Display::sizeY + 2);
 }
 
 void Display::UpdateBomb()

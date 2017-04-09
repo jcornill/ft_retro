@@ -6,13 +6,13 @@
 #    By: jcornill <jcornill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/24 18:32:00 by jcornill          #+#    #+#              #
-#    Updated: 2017/04/09 18:45:41 by jcornill         ###   ########.fr        #
+#    Updated: 2017/04/09 19:21:58 by jcornill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=ft_retro
 SRC=main.cpp Display.cpp Entity.cpp Game.cpp Player.cpp Logger.cpp Enemy.cpp \
-Star.cpp Projectile.cpp LivingEntity.cpp EntityChild.cpp Bonus.cpp
+Star.cpp Projectile.cpp LivingEntity.cpp EntityChild.cpp Bonus.cpp Boss.cpp
 OBJ=$(SRC:.cpp=.o)
 FLAG=-Wall -Wextra -Werror -std=c++98
 INCLUDE=-I includes

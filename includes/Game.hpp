@@ -27,6 +27,8 @@ class Game {
 		void	AddScore(int score);
 		void	StopGame();
 		Player *GetPlayer();
+		void	SpawnBoss();
+		void	BossDeath();
 
 		static Game *Instance;
 
@@ -42,6 +44,7 @@ class Game {
 		int _gameFrame;
 		int _difficulty;
 		bool _pause;
+		bool _boss;
 };
 
 #endif

@@ -53,6 +53,13 @@ void LivingEntity::TakeDamage(int damage)
 	}
 }
 
+void LivingEntity::Heal(int amount)
+{
+	this->_hp += amount;
+	if (this->_hp > this->_maxHp)
+		this->_hp = this->_maxHp;
+}
+
 int LivingEntity::GetHp() const
 {
 	return this->_hp;

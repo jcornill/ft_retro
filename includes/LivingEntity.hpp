@@ -13,6 +13,7 @@ class LivingEntity : public Entity {
 		int		GetHp() const;
 		int		GetMaxHp() const;
 		int		GetDamage() const;
+		virtual void 	Heal(int amount);
 
 	protected:
 		LivingEntity(void);

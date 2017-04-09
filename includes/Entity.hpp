@@ -1,6 +1,6 @@
 #ifndef ENTITY_HPP
 # define ENTITY_HPP
-# define NB_CHILD 50
+# define NB_CHILD 150
 
 class Entity {
 	public:

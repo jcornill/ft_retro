@@ -20,6 +20,7 @@ public:
 	std::string GetStatus() const;
 	void TakeDamage(int damage);
 	void GetBonus();
+	void Heal(int amount);
 
 private:
 	Player(void);

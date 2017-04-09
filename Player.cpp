@@ -25,7 +25,7 @@ Player::Player(int posX, int posY, char drawingChar, bool ally, int hp, int dama
 }
 
 Player::~Player(void) {
-    return;
+
 }
 
 Player &Player::operator=(Player const &rhs) {
@@ -214,4 +214,10 @@ std::string Player::GetStatus() const
 int Player::GetBomb()
 {
 	return this->_bomb;
+}
+
+void Player::Heal(int amount)
+{
+	LivingEntity::Heal(amount);
+	Display::UpdateLife();
 }

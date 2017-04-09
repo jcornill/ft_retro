@@ -3,11 +3,12 @@
 #include "Logger.hpp"
 #include "Star.hpp"
 #include "EntityChild.hpp"
+#include "Boss.hpp"
 #include <unistd.h>
 
 Game *Game::Instance = new Game();
 
-Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
+Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false), _boss(false)
 {
 	Logger::LogToFile("Game is loading");
 
@@ -19,7 +20,7 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(7, Display::sizeY / 2, '_', true, 500, 20, 10, true);
+	Player *player = new Player(7, Display::sizeY / 2, '_', true, 1000, 20, 10, true);
 	entityList[0] = player;
 	this->ParseString(player, "\n| \\\n=[_|H)--._____\n=[+--,-------'\n [|_/\"\"", 0);
 }
@@ -46,6 +47,16 @@ void Game::RemoveAllEntities()
 		if (entityList[i]) {
 			if (entityList[i]->GetAlly())
 				continue;
+			Boss *boss = dynamic_cast<Boss*>(entityList[i]);
+			if (boss)
+				continue;
+			EntityChild *child = dynamic_cast<EntityChild*>(entityList[i]);
+			if (child)
+			{
+				Boss *boss = dynamic_cast<Boss*>(child->GetParent());
+				if (boss)
+					continue;
+			}
 			Display::Erase(entityList[i]->GetPosX(), entityList[i]->GetPosY());
 			delete entityList[i];
 			entityList[i] = 0;
@@ -81,6 +92,7 @@ void Game::GameLoop()
 	Display::UpdateBomb();
 	while (1)
 	{
+		this->_gameFrame++;
 		_start = clock();
 		// Just here to break game loop when press Q
 		if (keys[113]) {
@@ -94,13 +106,24 @@ void Game::GameLoop()
 			}
 		}
 		this->ProcessCollision();
-		this->Spawn();
+		if (!this->_boss)
+			this->Spawn();
 		do {
 			this->QueryInput();
 			if (this->IsKeyPressed('p')) {
 				this->_pause = !this->_pause;
 			}
 		} while (this->_pause);
+
+		if (this->_gameFrame == 10000)
+		{
+			this->_boss = true;
+		}
+		if (this->_gameFrame == 11000)
+		{
+			Logger::LogToFile("Boss Spawn");
+			this->SpawnBoss();
+		}
 		Display::Refresh();
 		_end = clock();
 		int sleep = (7500 - (_end - _start));
@@ -109,6 +132,18 @@ void Game::GameLoop()
 		if (this->_stop)
 			break;
 	}
+}
+
+void	Game::SpawnBoss()
+{
+	Boss *boss = new Boss(Display::sizeX - 25, Display::sizeY / 2, '/', 15, 8000, 10, 10);
+	this->AddEntity(boss);
+	std::string str;
+	str += "~~~~~|\n               .__./''''''|\n";
+	str += "._____________/   |/^^^^^^^\\\n|             `===\"\\_______/\n";
+	str += "`.             .___/^^^^^^^^\\\n  `------------'~~~\\________/\n";
+	str +="                  `........\\\n                   `-------'";
+	this->ParseString(boss, str, 20);
 }
 
 void	Game::RemoveEntity(Entity *entity) {
@@ -135,8 +170,7 @@ void	Game::AddEntity(Entity *entity) {
 }
 
 void	Game::Spawn() {
-	this->_gameFrame++;
-	this->_difficulty = (int)((float)this->_gameFrame / 500.0f);
+	this->_difficulty = (int)((float)this->_gameFrame / 1000.0f);
 	if (this->_difficulty >= 20)
 		this->_difficulty = 20;
 	if (rand() % 42 == 0) {
@@ -233,4 +267,11 @@ Player *Game::GetPlayer()
 void Game::StopGame()
 {
 	this->_stop = true;
+}
+
+void Game::BossDeath()
+{
+	this->_boss = false;
+	if (this->GetPlayer())
+		this->GetPlayer()->Heal(1000);
 }
