@@ -56,7 +56,6 @@ Display::Display(int pSizeX, int pSizeY)
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 	cbreak();
 	mousemask(BUTTON1_PRESSED, NULL);
-	keypad(stdscr, TRUE);
 	noecho();
 	Display::sizeX = pSizeX;
 	Display::sizeY = pSizeY;
