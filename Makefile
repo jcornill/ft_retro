@@ -6,7 +6,7 @@
 #    By: jcornill <jcornill@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/24 18:32:00 by jcornill          #+#    #+#              #
-#    Updated: 2017/04/09 14:02:06 by jcornill         ###   ########.fr        #
+#    Updated: 2017/04/09 16:42:52 by jcornill         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=ft_retro
 SRC=main.cpp Display.cpp Entity.cpp Game.cpp Player.cpp Logger.cpp Enemy.cpp \
 Star.cpp Projectile.cpp LivingEntity.cpp EntityChild.cpp
 OBJ=$(SRC:.cpp=.o)
-FLAG=-Wall -Wextra -Werror
+FLAG=-Wall -Wextra -Werror -std=c++98
 INCLUDE=-I includes
 
 $(NAME): $(OBJ)

@@ -19,7 +19,7 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 30000, 20, 10, true);
+	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 500, 20, 10, true);
 	entityList[0] = player;
 	EntityChild *child = new EntityChild(player, '|', -1, 0);
 	this->AddEntity(child);
@@ -157,8 +157,7 @@ void Game::GameLoop()
 		this->ProcessCollision();
 		do {
 			this->QueryInput();
-			if (Display::lastKeyPressed == 'p') {
-				Logger::LogToFile(std::to_string(this->_pause));
+			if (this->IsKeyPressed('p')) {
 				this->_pause = !this->_pause;
 			}
 		} while (this->_pause);
@@ -199,29 +198,51 @@ void	Game::AddEntity(Entity *entity) {
 	  -\
 	 <|D
 	  -/
-*/
 
+
+	  \
+	  |D
+	  /
+
+
+
+
+*/
 void	Game::Spawn() {
 	this->_gameFrame++;
 	this->_difficulty = (int)((float)this->_gameFrame / 500.0f);
 	if (this->_difficulty >= 20)
 		this->_difficulty = 20;
 	if (rand() % 42 == 0) {
+		int enemyType = rand() % 2;
 		int y = (rand() % (Display::sizeY - 1)) + 1;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10));
-		AddEntity(enemy);
-		EntityChild *child = new EntityChild(enemy, '|', -1, 0);
-		this->AddEntity(child);
-		child = new EntityChild(enemy, '<', -2, 0);
-		this->AddEntity(child);
-		child = new EntityChild(enemy, '\\', 0, -1);
-		this->AddEntity(child);
-		child = new EntityChild(enemy, '/', 0, 1);
-		this->AddEntity(child);
-		child = new EntityChild(enemy, '-', -1, -1);
-		this->AddEntity(child);
-		child = new EntityChild(enemy, '-', -1, 1);
-		this->AddEntity(child);
+		if (enemyType == 0)
+		{
+			Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10), 0);
+			AddEntity(enemy);
+			EntityChild *child = new EntityChild(enemy, '|', -1, 0);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '<', -2, 0);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '\\', 0, -1);
+			this->AddEntity(child);		child = new EntityChild(enemy, '/', 0, 1);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '-', -1, -1);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '-', -1, 1);
+			this->AddEntity(child);
+		}
+		else
+		{
+			Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 10, false, 25 + (this->_difficulty * 5), 15 + (this->_difficulty * 2), 300 - (this->_difficulty * 5), 1);
+			AddEntity(enemy);
+			EntityChild *child = new EntityChild(enemy, '|', -1, 0);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '\\', -1, -1);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '/', -1, 1);
+			this->AddEntity(child);
+		}
 	}
 	if (rand() % 10 == 1) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;

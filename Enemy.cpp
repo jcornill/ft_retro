@@ -17,8 +17,8 @@ Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
 
-Enemy::Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed) :
-LivingEntity(posX, posY, drawingChar, speed, ally, hp, damage), _attackSpeed(attackSpeed)
+Enemy::Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed, int shootType) :
+LivingEntity(posX, posY, drawingChar, speed, ally, hp, damage), _attackSpeed(attackSpeed), _shootType(shootType)
 {
 
 }
@@ -61,8 +61,18 @@ void Enemy::Shoot()
 {
 	if (this->_frameCount % this->_attackSpeed == 0)
 	{
-		Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '-', 2, false, false, this->_damage);
-		Game::Instance->AddEntity(proj);
+		if (this->_shootType == 0)
+		{
+			Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '-', 2, false, false, this->_damage, 0);
+			Game::Instance->AddEntity(proj);
+		}
+		else if (this->_shootType == 1)
+		{
+			Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '/', 2, false, false, this->_damage, 1);
+			Game::Instance->AddEntity(proj);
+			proj = new Projectile(this->_posX - 3, this->_posY, '\\', 2, false, false, this->_damage, -1);
+			Game::Instance->AddEntity(proj);
+		}
 	}
 }
 

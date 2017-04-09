@@ -9,7 +9,7 @@ class Enemy : public LivingEntity {
 	public:
 		Enemy(void);
 		Enemy(Enemy const & src);
-		Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed);
+		Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed, int shootType);
 		virtual ~Enemy(void);
 		Enemy & operator=(Enemy const & rhs);
 
@@ -18,6 +18,7 @@ class Enemy : public LivingEntity {
 		void Shoot();
 	private:
 		int _attackSpeed;
+		int _shootType;
 };
 
 #endif

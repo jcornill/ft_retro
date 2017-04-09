@@ -14,8 +14,8 @@ Projectile::Projectile(Projectile const & src) {
 	*this = src;
 }
 
-Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage ) :
-Entity(posX, posY, drawingChar, speed, ally), _dir(dir), _damage(damage)
+Projectile::Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage , int up) :
+Entity(posX, posY, drawingChar, speed, ally), _dir(dir), _damage(damage), _up(up)
 {
 
 }
@@ -80,10 +80,15 @@ void Projectile::Update()
 	if (this->_frameCount % this->_speed == 0)
 	{
 		this->_oldX = this->_posX;
+		this->_oldY = this->_posY;
 		if (this->_dir)
 			this->_posX++;
 		else
 			this->_posX--;
+		if (this->_up == 1)
+			this->_posY++;
+		if (this->_up == -1)
+			this->_posY--;
 		this->_hasPosChanged = true;
 		if (_hasPosChanged)
 		{
