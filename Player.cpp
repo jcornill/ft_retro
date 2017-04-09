@@ -59,9 +59,9 @@ void Player::Shoot()
 {
 	if (this->_frameCount % _attackSpeed == 0)
 	{
-		Projectile *proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage);
+		Projectile *proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 0);
 		Game::Instance->AddEntity(proj);
-		proj = new Projectile(this->_posX + 10, this->_posY + 1, '-', 2, true, true, this->_damage);
+		proj = new Projectile(this->_posX + 10, this->_posY + 1, '-', 2, true, true, this->_damage, 0);
 		Game::Instance->AddEntity(proj);
 	}
 }
@@ -102,6 +102,22 @@ void Player::Colision(Entity *entity)
 	}
 }
 
+bool Player::IsChildOut()
+{
+	for (int i = 0; i < NB_CHILD; ++i)
+	{
+		Entity *en = this->entitiesChild[i];
+		if (en)
+		{
+			if (Display::IsInMap(en->GetPosX(), en->GetPosY())
+			{
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 void Player::Update()
 {
 	this->Shoot();
@@ -133,7 +149,8 @@ void Player::Update()
 			Game::Instance->RemoveAllEntities();
 		}
 	}
-	if (Display::IsInMap(this->_posX, this->_posY))
+
+	if (Display::IsInMap(this->_posX, this->_posY) && !IsChildOut())
 	{
 		Display::Erase(this->_oldX, this->_oldY);
 		Display::PutChar(_drawingChar, this->_posX, this->_posY);

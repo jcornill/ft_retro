@@ -22,6 +22,7 @@ public:
 
 private:
 	Player(void);
+	bool IsChildOut();
 	int _attackSpeed;
 	bool _mainPlayer;
 	int _bomb;
