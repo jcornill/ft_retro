@@ -39,6 +39,7 @@ class Game {
 		clock_t _end;
 		bool _stop;
 		int _gameFrame;
+		int _difficulty;
 };
 
 #endif

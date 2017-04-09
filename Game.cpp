@@ -19,7 +19,7 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 300, 20, 10, true);
+	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 30000, 20, 10, true);
 	entityList[0] = player;
 	EntityChild *child = new EntityChild(player, '|', -1, 0);
 	this->AddEntity(child);
@@ -196,10 +196,12 @@ void	Game::AddEntity(Entity *entity) {
 
 void	Game::Spawn() {
 	this->_gameFrame++;
-	int Difficulty = 0; //(int)((float)this->_gameFrame / 500.0f);
+	this->_difficulty = (int)((float)this->_gameFrame / 500.0f);
+	if (this->_difficulty >= 20)
+		this->_difficulty = 20;
 	if (rand() % 42 == 0) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (Difficulty * 10), 10 + Difficulty, 250 - (Difficulty * 10));
+		Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10));
 		AddEntity(enemy);
 		EntityChild *child = new EntityChild(enemy, '|', -1, 0);
 		this->AddEntity(child);
@@ -265,7 +267,7 @@ int Game::GetScore() const
 
 void Game::AddScore(int score)
 {
-	_score += score;
+	this->_score += (score * (this->_difficulty + 1));
 	Display::UpdateScore();
 }
 

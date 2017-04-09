@@ -13,6 +13,11 @@ _posX(posX), _posY(posY), _oldX(posX), _oldY(_posY), _hasPosChanged(false),
 _drawingChar(drawingChar), _speed(speed), _frameCount(0), _isCollide(true),
 _ally(ally)
 {
+	if (!Display::IsInMap(this->_posX, this->_posY))
+	{
+		Game::Instance->RemoveEntity(this);
+		return;
+	}
 	Display::PutChar(_drawingChar, this->_posX, this->_posY);
 	for (int i = 0; i < NB_CHILD; ++i)
 	{
