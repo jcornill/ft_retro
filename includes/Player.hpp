@@ -19,6 +19,7 @@ public:
 	int GetBomb();
 	std::string GetStatus() const;
 	void TakeDamage(int damage);
+	void GetBonus();
 
 private:
 	Player(void);
@@ -26,6 +27,7 @@ private:
 	int _attackSpeed;
 	bool _mainPlayer;
 	int _bomb;
+	int _bonusLevel;
 };
 
 #endif

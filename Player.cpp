@@ -17,8 +17,8 @@ Player::Player(Player const &src) {
 }
 
 Player::Player(int posX, int posY, char drawingChar, bool ally, int hp, int damage, int attackSpeed, bool mainPlayer) :
-	LivingEntity(posX, posY, drawingChar, 0, ally, hp, damage), _attackSpeed(attackSpeed), _mainPlayer(mainPlayer)
-	, _bomb(3)
+	LivingEntity(posX, posY, drawingChar, 0, ally, hp, damage), _attackSpeed(attackSpeed), _mainPlayer(mainPlayer),
+	_bomb(3), _bonusLevel(0)
 {
 		//Display::UpdateLife();
 }
@@ -59,26 +59,29 @@ void Player::Shoot()
 {
 	if (this->_frameCount % _attackSpeed == 0)
 	{
-		Projectile *proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 0);
+		Projectile *proj = new Projectile(this->_posX + 15, this->_posY + 2, '-', 2, true, true, this->_damage, 0);
 		Game::Instance->AddEntity(proj);
-		proj = new Projectile(this->_posX + 10, this->_posY + 1, '-', 2, true, true, this->_damage, 0);
+		proj = new Projectile(this->_posX + 15, this->_posY + 3, '-', 2, true, true, this->_damage, 0);
 		Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY + 1, '\\', 2, true, true, this->_damage, 1);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY + 1, '/', 2, true, true, this->_damage, -1);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
-		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
-		// Game::Instance->AddEntity(proj);
+		if (this->_bonusLevel > 0)
+		{
+			proj = new Projectile(this->_posX + 15, this->_posY + 2, '\\', 5, true, true, this->_damage, 1);
+			Game::Instance->AddEntity(proj);
+			proj = new Projectile(this->_posX + 15, this->_posY + 3, '/', 5, true, true, this->_damage, -1);
+		 	Game::Instance->AddEntity(proj);
+		}
+		if (this->_bonusLevel > 1)
+		{
+			proj = new Projectile(this->_posX + 17, this->_posY + 2, '\\', 5, true, true, this->_damage, 1);
+			Game::Instance->AddEntity(proj);
+			proj = new Projectile(this->_posX + 17, this->_posY + 3, '/', 5, true, true, this->_damage, -1);
+			Game::Instance->AddEntity(proj);
+		}
+		for (int i = 2; i < this->_bonusLevel; ++i)
+		{
+			proj = new Projectile(this->_posX + 15, this->_posY + 2, '-', 2, true, true, this->_damage, 2);
+		 	Game::Instance->AddEntity(proj);
+		}
 	}
 }
 
@@ -180,6 +183,11 @@ void Player::Update()
 	}
 	if (this->_hasPosChanged)
 		this->_hasPosChanged = false;
+}
+
+void Player::GetBonus()
+{
+	this->_bonusLevel++;
 }
 
 std::string Player::GetStatus() const
