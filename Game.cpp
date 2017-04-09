@@ -19,7 +19,7 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 500, 20, 10, true);
+	Player *player = new Player(7, Display::sizeY / 2, 'H', true, 500, 20, 10, true);
 	entityList[0] = player;
 	EntityChild *child = new EntityChild(player, '|', -1, 0);
 	this->AddEntity(child);

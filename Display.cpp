@@ -55,7 +55,6 @@ Display::Display(int pSizeX, int pSizeY)
 	init_color(COLOR_GREEN, 50, 600, 50);
 	init_pair(3, COLOR_GREEN, COLOR_BLACK);
 	cbreak();
-	mousemask(BUTTON1_PRESSED, NULL);
 	noecho();
 	Display::sizeX = pSizeX;
 	Display::sizeY = pSizeY;
