@@ -104,15 +104,11 @@ void Player::Colision(Entity *entity)
 
 bool Player::IsChildOut()
 {
-	for (int i = 0; i < NB_CHILD; ++i)
-	{
-		Entity *en = this->entitiesChild[i];
-		if (en)
-		{
-			if (Display::IsInMap(en->GetPosX(), en->GetPosY()))
-			{
+	for (int i = 0; i < NB_CHILD; ++i) {
+		EntityChild* child2 = dynamic_cast<EntityChild*>(entitiesChild[i]);
+		if (child2) {
+			if (!child2->UpdatePos(this->_posX, this->_posY))
 				return true;
-			}
 		}
 	}
 	return false;
@@ -150,7 +146,7 @@ void Player::Update()
 		}
 	}
 
-	if (Display::IsInMap(this->_posX, this->_posY) && !IsChildOut())
+	if (Display::IsInMap(this->_posX, this->_posY) && !this->IsChildOut())
 	{
 		Display::Erase(this->_oldX, this->_oldY);
 		Display::PutChar(_drawingChar, this->_posX, this->_posY);
@@ -159,10 +155,15 @@ void Player::Update()
 	{
 		this->_posX = this->_oldX;
 		this->_posY = this->_oldY;
+		for (int i = 0; i < NB_CHILD; ++i) {
+			EntityChild* child2 = dynamic_cast<EntityChild*>(entitiesChild[i]);
+			if (child2) {
+				child2->UpdatePos(this->_posX, this->_posY);
+			}
+		}
 	}
 	if (this->_hasPosChanged)
 		this->_hasPosChanged = false;
-	Entity::Update();
 }
 
 std::string Player::GetStatus() const

@@ -60,15 +60,16 @@ Entity *EntityChild::GetParent()
 	return this->_parent;
 }
 
-void EntityChild::UpdatePos(int x, int y)
+bool EntityChild::UpdatePos(int x, int y)
 {
 	x += this->_rPosX;
 	y += this->_rPosY;
 	if (!Display::IsInMap(x, y))
-		return;
+		return false;
 	this->_hasPosChanged = true;
 	this->_oldX = this->_posX;
 	this->_oldY = this->_posY;
 	this->_posX = x;
 	this->_posY = y;
+	return true;
 }

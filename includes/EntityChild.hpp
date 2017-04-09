@@ -17,7 +17,7 @@ public:
 	void Colision(Entity *entity);
 	void SetParent(Entity *entity);
 	Entity *GetParent();
-	void UpdatePos(int x, int y);
+	bool UpdatePos(int x, int y);
 
 private:
 	EntityChild(void);
