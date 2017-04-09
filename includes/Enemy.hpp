@@ -10,7 +10,7 @@ class Enemy : public LivingEntity {
 		Enemy(void);
 		Enemy(Enemy const & src);
 		Enemy(int posX, int posY, char drawingChar, int speed, bool ally, int hp, int damage, int attackSpeed);
-		~Enemy(void);
+		virtual ~Enemy(void);
 		Enemy & operator=(Enemy const & rhs);
 
 		void Update();

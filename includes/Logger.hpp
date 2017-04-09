@@ -5,7 +5,10 @@
 class Logger
 {
 public:
-	Logger();
+	Logger(void);
+	Logger(Logger const & src);
+	virtual ~Logger();
+	Logger & operator=(Logger const &rhs);
 	static void LogToFile(const std::string &message);
 	static void LogToFile(int);
 	static std::string MakeLogEntry(const std::string &message);

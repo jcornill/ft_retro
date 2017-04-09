@@ -6,7 +6,7 @@ class Projectile : public Entity {
 	public:
 		Projectile(int posX, int posY, char drawingChar, int speed, bool dir, bool ally, int damage);
 		Projectile(Projectile const & src);
-		~Projectile(void);
+		virtual ~Projectile(void);
 		Projectile & operator=(Projectile const & rhs);
 
 		void Update();

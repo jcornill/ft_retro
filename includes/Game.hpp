@@ -10,7 +10,7 @@ class Game {
 	public:
 		Game(void);
 		Game(Game const & src);
-		~Game(void);
+		virtual ~Game(void);
 		Game & operator=(Game const & rhs);
 
 		// The Game loop

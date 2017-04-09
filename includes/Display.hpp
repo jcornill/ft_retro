@@ -9,7 +9,7 @@ class Display {
 public:
 	Display(int pSizeX, int pSizeY);
     Display(Display const &src);
-    ~Display(void);
+    virtual ~Display(void);
     Display &operator=(Display const &rhs);
 
 	// Return the char press by the player

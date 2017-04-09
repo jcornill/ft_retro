@@ -7,9 +7,23 @@
 
 std::string const Logger::_filename = "log.txt";
 
-Logger::Logger()
-{
+Logger::Logger(){
 
+}
+
+Logger::Logger(Logger const & src) {
+	*this = src;
+}
+
+Logger::~Logger() {
+
+}
+
+Logger & Logger::operator=(Logger const & rhs) {
+	if (this != &rhs) {
+
+	}
+	return *this;
 }
 
 void Logger::LogToFile(int message)
