@@ -219,18 +219,21 @@ void	Game::Spawn() {
 		if (enemyType == 0)
 		{
 			Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10), 0);
-			AddEntity(enemy);
+			this->AddEntity(enemy);
+			this->ParseString(enemy, " |<\\/\n-\n-");
+/*
 			EntityChild *child = new EntityChild(enemy, '|', -1, 0);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '<', -2, 0);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '\\', 0, -1);
-			this->AddEntity(child);		child = new EntityChild(enemy, '/', 0, 1);
+			this->AddEntity(child);
+			child = new EntityChild(enemy, '/', 0, 1);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '-', -1, -1);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '-', -1, 1);
-			this->AddEntity(child);
+			this->AddEntity(child); */
 		}
 		else
 		{
@@ -264,6 +267,49 @@ void	Game::ProcessCollision() {
 		}
 	}
 }
+
+void	Game::ParseString(Entity *entity, std::string charArray) {
+	int row = 0;
+	int col = 0;
+	for (int i = 0; i < (int)charArray.length(); i++) {
+		char c = charArray[i];
+		if (c == '\n') {
+			row--;
+			col = 0;
+			continue;
+		}
+		if (c == ' ') {
+			col--;
+			continue;
+		}
+		EntityChild *child = new EntityChild(entity, c, col, row);
+		this->AddEntity(child);
+		col --;
+
+	}
+}
+	/*
+	EntityChild *child = new EntityChild(entity, '|', -1, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', -2, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '[', -3, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '=', -4, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '|', -4, -1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', -4, -2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '\\', -2, -1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '=', -4, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '[', -3, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '+', -2, 1);
+	this->AddEntity(child);
+*/
 
 void 	Game::QueryInput() {
 	for (int i = 0; i < 256; i++ ) {

@@ -31,6 +31,7 @@ class Game {
 		static Game *Instance;
 
 	private:
+		void	ParseString(Entity *entity, std::string charArray);
 		int _score;
 		// Array de pointeur sur entity
 		Entity *entityList[NB_ENTITY];
