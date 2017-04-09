@@ -40,6 +40,7 @@ class Game {
 		bool _stop;
 		int _gameFrame;
 		int _difficulty;
+		bool _pause;
 };
 
 #endif

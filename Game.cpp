@@ -7,7 +7,7 @@
 
 Game *Game::Instance = new Game();
 
-Game::Game(void) : _score(0), _stop(false), _gameFrame(0)
+Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
 {
 	Logger::LogToFile("Game is loading");
 
@@ -155,11 +155,18 @@ void Game::GameLoop()
 		}
 		this->Spawn();
 		this->ProcessCollision();
-		this->QueryInput();
+		do {
+			this->QueryInput();
+			if (Display::lastKeyPressed == 'p') {
+				Logger::LogToFile(std::to_string(this->_pause));
+				this->_pause = !this->_pause;
+			}
+		} while (this->_pause);
 		Display::Refresh();
 		_end = clock();
-		unsigned int sleep = (7500 - (_end - _start));
-		usleep(sleep);
+		int sleep = (7500 - (_end - _start));
+		if (sleep > 0)
+			usleep(sleep);
 		if (this->_stop)
 			break;
 	}
@@ -242,15 +249,9 @@ void 	Game::QueryInput() {
 		this->keys[i] = false;
 	}
 
-	int keyPressed[3];
-	keyPressed[0] = Display::GetKey();
-	//keyPressed[1] = Display::GetKey();
-	//keyPressed[2] = Display::GetKey();
-	for (int i = 0; i < 1; i++) {
-		if (keyPressed[i] != -1) {
-			this->keys[keyPressed[i]] = true;
-		}
-	}
+	int keyPressed = Display::GetKey();
+	if (keyPressed != -1)
+		this->keys[keyPressed] = true;
 }
 
 bool	Game::IsKeyPressed(int key) {
