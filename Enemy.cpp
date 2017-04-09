@@ -1,6 +1,7 @@
 #include "Enemy.hpp"
 #include "Projectile.hpp"
 #include "Player.hpp"
+#include "Bonus.hpp"
 
 Enemy::Enemy(void) {
 
@@ -24,7 +25,11 @@ LivingEntity(posX, posY, drawingChar, speed, ally, hp, damage), _attackSpeed(att
 }
 
 Enemy::~Enemy(void) {
-
+	if (rand() % 30 == 0)
+	{
+		Bonus *bonus = new Bonus(this->_posX, this->_posY, 'B', 2);
+		Game::Instance->AddEntity(bonus);
+	}
 }
 
 Enemy &	Enemy::operator=(Enemy const & rhs) {

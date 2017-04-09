@@ -29,6 +29,7 @@ void Bonus::Colision(Entity *entity)
 	if (player)
 	{
 		player->GetBonus();
+		Game::Instance->RemoveEntity(this);
 		return;
 	}
 	EntityChild* child = dynamic_cast<EntityChild*>(entity);
@@ -37,6 +38,7 @@ void Bonus::Colision(Entity *entity)
 		Player* live = dynamic_cast<Player*>(child->GetParent());
 		if (live) {
 			player->GetBonus();
+			Game::Instance->RemoveEntity(this);
 		}
 		return;
 	}
@@ -49,22 +51,16 @@ void Bonus::Update()
 	{
 		this->_oldX = this->_posX;
 		this->_oldY = this->_posY;
-		this->_posX++;
-
+		this->_posX--;
+		this->_hasPosChanged = true;
 		if (_hasPosChanged)
 		{
 			if (Display::IsInMap(this->_posX, this->_posY))
 			{
 				Display::Erase(this->_oldX, this->_oldY);
-				if (this->_ally)
-					attron(COLOR_PAIR(3));
-				else
-					attron(COLOR_PAIR(2));
+				attron(COLOR_PAIR(3));
 				Display::PutChar(_drawingChar, this->_posX, this->_posY);
-				if (this->_ally)
-					attroff(COLOR_PAIR(3));
-				else
-					attroff(COLOR_PAIR(2));
+				attroff(COLOR_PAIR(3));
 			}
 			else
 			{

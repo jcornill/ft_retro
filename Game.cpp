@@ -18,14 +18,6 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0), _pause(false)
 	for (int i = 0; i < 256; ++i) {
 		keys[i] = false;
 	}
-/*
-_
-| \
-=[_|H)--._____
-=[+--,-------'
- [|_/""
-
-*/
 
 	Player *player = new Player(7, Display::sizeY / 2, '_', true, 500, 20, 10, true);
 	entityList[0] = player;
@@ -130,20 +122,6 @@ void	Game::AddEntity(Entity *entity) {
 	delete entity;
 }
 
-/*
-	  -\
-	 <|D
-	  -/
-
-
-	  \
-	  |D
-	  /
-
-
-
-
-*/
 void	Game::Spawn() {
 	this->_gameFrame++;
 	this->_difficulty = (int)((float)this->_gameFrame / 500.0f);
@@ -206,28 +184,6 @@ void	Game::ParseString(Entity *entity, std::string charArray, int paddingStart) 
 
 	}
 }
-	/*
-	EntityChild *child = new EntityChild(entity, '|', -1, 0);
-	this->AddEntity(child);
-	child = new EntityChild(player, '_', -2, 0);
-	this->AddEntity(child);
-	child = new EntityChild(player, '[', -3, 0);
-	this->AddEntity(child);
-	child = new EntityChild(player, '=', -4, 0);
-	this->AddEntity(child);
-	child = new EntityChild(player, '|', -4, -1);
-	this->AddEntity(child);
-	child = new EntityChild(player, '_', -4, -2);
-	this->AddEntity(child);
-	child = new EntityChild(player, '\\', -2, -1);
-	this->AddEntity(child);
-	child = new EntityChild(player, '=', -4, 1);
-	this->AddEntity(child);
-	child = new EntityChild(player, '[', -3, 1);
-	this->AddEntity(child);
-	child = new EntityChild(player, '+', -2, 1);
-	this->AddEntity(child);
-*/
 
 void 	Game::QueryInput() {
 	for (int i = 0; i < 256; i++ ) {

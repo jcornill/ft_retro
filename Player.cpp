@@ -5,6 +5,7 @@
 #include "EntityChild.hpp"
 #include "LivingEntity.hpp"
 #include "Game.hpp"
+#include "Bonus.hpp"
 
 Player::Player(void)
 {
@@ -118,6 +119,12 @@ void Player::Colision(Entity *entity)
 		Game::Instance->RemoveEntity(parent);
 		this->TakeDamage(vDamage);
 		return;
+	}
+	Bonus* bonus = dynamic_cast<Bonus*>(entity);
+	if (bonus)
+	{
+		this->GetBonus();
+		Game::Instance->RemoveEntity(bonus);
 	}
 }
 
