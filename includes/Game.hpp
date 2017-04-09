@@ -27,7 +27,7 @@ class Game {
 		void	AddScore(int score);
 		void	StopGame();
 		Player *GetPlayer();
-		void	SpawnBoss();
+		void	SpawnBoss(int id);
 		void	BossDeath();
 
 		static Game *Instance;

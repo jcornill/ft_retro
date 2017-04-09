@@ -30,7 +30,7 @@ Boss &Boss::operator=(Boss const &rhs) {
 void Boss::TakeDamage(int damage)
 {
 	this->_hp -= damage;
-	if (this->_hp <= 0)
+	if (this->_hp <= 0 && !this->_die)
 	{
 		Game::Instance->AddScore(this->_maxHp);
 		this->_damage += 1000;

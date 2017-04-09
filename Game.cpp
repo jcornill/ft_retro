@@ -122,7 +122,16 @@ void Game::GameLoop()
 		if (this->_gameFrame == 11000)
 		{
 			Logger::LogToFile("Boss Spawn");
-			this->SpawnBoss();
+			this->SpawnBoss(0);
+		}
+		if (this->_gameFrame == 30000)
+		{
+			this->_boss = true;
+		}
+		if (this->_gameFrame == 31000)
+		{
+			Logger::LogToFile("Boss Spawn");
+			this->SpawnBoss(1);
 		}
 		Display::Refresh();
 		_end = clock();
@@ -134,16 +143,30 @@ void Game::GameLoop()
 	}
 }
 
-void	Game::SpawnBoss()
+void	Game::SpawnBoss(int id)
 {
-	Boss *boss = new Boss(Display::sizeX - 25, Display::sizeY / 2, '/', 15, 8000, 10, 10);
-	this->AddEntity(boss);
-	std::string str;
-	str += "~~~~~|\n               .__./''''''|\n";
-	str += "._____________/   |/^^^^^^^\\\n|             `===\"\\_______/\n";
-	str += "`.             .___/^^^^^^^^\\\n  `------------'~~~\\________/\n";
-	str +="                  `........\\\n                   `-------'";
-	this->ParseString(boss, str, 20);
+	if (id == 0)
+	{
+		Boss *boss = new Boss(Display::sizeX - 25, Display::sizeY / 2, '/', 15, 8000, 10, 10);
+		this->AddEntity(boss);
+		std::string str;
+		str += "~~~~~|\n               .__./''''''|\n";
+		str += "._____________/   |/^^^^^^^\\\n|             `===\"\\_______/\n";
+		str += "`.             .___/^^^^^^^^\\\n  `------------'~~~\\________/\n";
+		str +="                  `........\\\n                   `-------'";
+		this->ParseString(boss, str, 20);
+	}
+	else if (id == 1)
+	{
+		Boss *boss = new Boss(Display::sizeX - 25, Display::sizeY / 2, '/', 10, 24000, 50, 5);
+		this->AddEntity(boss);
+		std::string str;
+		str += "~~~~~|\n               .__./''''''|\n";
+		str += "._____________/   |/^^^^^^^\\\n|             `===\"\\_______/\n";
+		str += "`.             .___/^^^^^^^^\\\n  `------------'~~~\\________/\n";
+		str +="                  `........\\\n                   `-------'";
+		this->ParseString(boss, str, 20);
+	}
 }
 
 void	Game::RemoveEntity(Entity *entity) {
@@ -171,14 +194,12 @@ void	Game::AddEntity(Entity *entity) {
 
 void	Game::Spawn() {
 	this->_difficulty = (int)((float)this->_gameFrame / 1000.0f);
-	if (this->_difficulty >= 20)
-		this->_difficulty = 20;
 	if (rand() % 42 == 0) {
 		int enemyType = rand() % 2;
 		int y = (rand() % (Display::sizeY - 4)) + 2;
 		if (enemyType == 0)
 		{
-			Enemy *enemy = new Enemy(Display::sizeX - 1, y, '-', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10), 0);
+			Enemy *enemy = new Enemy(Display::sizeX - 1, y, '-', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - ((this->_difficulty > 20) ? 20 : this->_difficulty * 10), 0);
 			this->AddEntity(enemy);
 			this->ParseString(enemy, "\\\n<|D\n -/", 1);
 		}
