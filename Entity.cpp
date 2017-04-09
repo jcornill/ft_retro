@@ -1,10 +1,11 @@
-#include "Entity.hpp"
+#include "EntityChild.hpp"
 #include "Display.hpp"
 #include "Logger.hpp"
+#include "Game.hpp"
 
-Entity::Entity(void) : _posX(1), _posY(1), _oldX(1), _oldY(1), _hasPosChanged(false), _drawingChar('>')
+Entity::Entity(void)
 {
-	Display::PutChar(_drawingChar, this->_posX, this->_posY);
+
 }
 
 Entity::Entity(int posX, int posY, char drawingChar, int speed, bool ally) :
@@ -13,6 +14,10 @@ _drawingChar(drawingChar), _speed(speed), _frameCount(0), _isCollide(true),
 _ally(ally)
 {
 	Display::PutChar(_drawingChar, this->_posX, this->_posY);
+	for (int i = 0; i < NB_CHILD; ++i)
+	{
+		entitiesChild[i] = 0;
+	}
 }
 
 Entity::Entity(Entity const & src) {
@@ -20,7 +25,13 @@ Entity::Entity(Entity const & src) {
 }
 
 Entity::~Entity(void) {
-
+	if (Display::IsInMap(this->_posX, this->_posY))
+		Display::Erase(this->_posX, this->_posY);
+	for (int i = 0; i < NB_CHILD; ++i)
+	{
+		if (entitiesChild[i])
+			Game::Instance->RemoveEntity(entitiesChild[i]);
+	}
 }
 
 Entity &	Entity::operator=(Entity const & rhs) {
@@ -39,6 +50,37 @@ Entity &	Entity::operator=(Entity const & rhs) {
 	return (*this);
 }
 
+
+void Entity::RemoveChild(Entity *child)
+{
+	for (int i = 0; i < NB_CHILD; ++i) {
+		if (entitiesChild[i] == child) {
+			entitiesChild[i] = 0;
+		}
+	}
+}
+
+void Entity::AddChild(Entity *child)
+{
+	EntityChild* child2 = dynamic_cast<EntityChild*>(child);
+	for (int i = 0; i < NB_CHILD; ++i) {
+		if (entitiesChild[i] == 0) {
+			entitiesChild[i] = child2;
+			child2->SetParent(this);
+			return ;
+		}
+	}
+}
+
+void Entity::Update()
+{
+	for (int i = 0; i < NB_CHILD; ++i) {
+		EntityChild* child2 = dynamic_cast<EntityChild*>(entitiesChild[i]);
+		if (child2) {
+			child2->UpdatePos(this->_posX, this->_posY);
+		}
+	}
+}
 
 int Entity::GetPosX() const
 {

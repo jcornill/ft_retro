@@ -3,6 +3,8 @@
 #include "Display.hpp"
 #include "Logger.hpp"
 #include "Player.hpp"
+#include "EntityChild.hpp"
+#include "LivingEntity.hpp"
 
 Projectile::Projectile(void) {
 
@@ -36,7 +38,7 @@ int Projectile::GetDamage() const
 
 void Projectile::Colision(Entity *entity)
 {
-	if (_ally)
+	if (this->_ally)
 	{
 		Enemy* enemy = dynamic_cast<Enemy*>(entity);
 		if (enemy)
@@ -44,6 +46,7 @@ void Projectile::Colision(Entity *entity)
 			enemy->TakeDamage(this->_damage);
 			Display::Erase(this->_posX, this->_posY);
 			Game::Instance->RemoveEntity(this);
+			return;
 		}
 	}
 	else
@@ -54,7 +57,20 @@ void Projectile::Colision(Entity *entity)
 			player->TakeDamage(this->_damage);
 			Display::Erase(this->_posX, this->_posY);
 			Game::Instance->RemoveEntity(this);
+			return;
 		}
+	}
+	EntityChild* child = dynamic_cast<EntityChild*>(entity);
+	if (child)
+	{
+		if (child->GetAlly() != this->_ally)
+		{
+			LivingEntity* live = dynamic_cast<LivingEntity*>(child->GetParent());
+			live->TakeDamage(this->_damage);
+			Display::Erase(this->_posX, this->_posY);
+			Game::Instance->RemoveEntity(this);
+		}
+		return;
 	}
 }
 

@@ -2,7 +2,7 @@
 #include "Display.hpp"
 #include "Logger.hpp"
 #include "Star.hpp"
-
+#include "EntityChild.hpp"
 #include <unistd.h>
 
 Game *Game::Instance = new Game();
@@ -19,8 +19,81 @@ Game::Game(void) : _score(0), _stop(false), _gameFrame(0)
 		keys[i] = false;
 	}
 
-	Player *player = new Player(2, Display::sizeY / 2, '>', true, 300, 20, 10, true);
+	Player *player = new Player(6, Display::sizeY / 2, 'H', true, 300, 20, 10, true);
 	entityList[0] = player;
+	EntityChild *child = new EntityChild(player, '|', -1, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', -2, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '[', -3, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '=', -4, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '|', -4, -1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', -4, -2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '\\', -2, -1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '=', -4, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '[', -3, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '+', -2, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', -1, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 0, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, ',', 1, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 2, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 3, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 4, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 5, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 6, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 7, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 8, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '\'', 9, 1);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', 9, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', 8, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', 7, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', 6, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', 5, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '.', 4, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 3, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '-', 2, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, ')', 1, 0);
+	this->AddEntity(child);
+	child = new EntityChild(player, '[', -3, 2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '|', -2, 2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '_', -1, 2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '/', 0, 2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '"', 1, 2);
+	this->AddEntity(child);
+	child = new EntityChild(player, '"', 2, 2);
+	this->AddEntity(child);
+
 }
 
 Game::Game(Game const & src) {
@@ -115,13 +188,31 @@ void	Game::AddEntity(Entity *entity) {
 	delete entity;
 }
 
+/*
+	  -\
+	 <|D
+	  -/
+*/
+
 void	Game::Spawn() {
 	this->_gameFrame++;
 	int Difficulty = 0; //(int)((float)this->_gameFrame / 500.0f);
 	if (rand() % 21 == 0) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
-		Enemy *enemy = new Enemy(Display::sizeX - 1, y, '<', 5, false, 50 + (Difficulty * 10), 10 + Difficulty, 250 - (Difficulty * 10));
+		Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (Difficulty * 10), 10 + Difficulty, 250 - (Difficulty * 10));
 		AddEntity(enemy);
+		EntityChild *child = new EntityChild(enemy, '|', -1, 0);
+		this->AddEntity(child);
+		child = new EntityChild(enemy, '<', -2, 0);
+		this->AddEntity(child);
+		child = new EntityChild(enemy, '\\', 0, -1);
+		this->AddEntity(child);
+		child = new EntityChild(enemy, '/', 0, 1);
+		this->AddEntity(child);
+		child = new EntityChild(enemy, '-', -1, -1);
+		this->AddEntity(child);
+		child = new EntityChild(enemy, '-', -1, 1);
+		this->AddEntity(child);
 	}
 	if (rand() % 10 == 1) {
 		int y = (rand() % (Display::sizeY - 1)) + 1;

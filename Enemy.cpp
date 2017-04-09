@@ -6,6 +6,13 @@ Enemy::Enemy(void) {
 
 }
 
+
+/*
+	  -\
+	 <|D
+	  -/
+*/
+
 Enemy::Enemy(Enemy const & src) {
 	*this = src;
 }
@@ -30,8 +37,10 @@ Enemy &	Enemy::operator=(Enemy const & rhs) {
 void Enemy::Colision(Entity *entity)
 {
 	Projectile* proj = dynamic_cast<Projectile*>(entity);
-	if (proj && proj->GetAlly())
+	if (proj)
 	{
+		if (!proj->GetAlly())
+			return;
 		int vDamage = proj->GetDamage();
 		Display::Erase(proj->GetPosX(), this->GetPosY());
 		Game::Instance->RemoveEntity(proj);
@@ -52,7 +61,7 @@ void Enemy::Shoot()
 {
 	if (this->_frameCount % this->_attackSpeed == 0)
 	{
-		Projectile *proj = new Projectile(this->_posX - 1, this->_posY, '-', 2, false, false, this->_damage);
+		Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '-', 2, false, false, this->_damage);
 		Game::Instance->AddEntity(proj);
 	}
 }
@@ -64,20 +73,16 @@ void Enemy::Update() {
 	{
 		this->_oldX = this->_posX;
 		this->_posX--;
-		this->_hasPosChanged = true;
-		if (_hasPosChanged)
-		{
-			if (Display::IsInMap(this->_posX, this->_posY))
-			{
-				Display::Erase(this->_oldX, this->_oldY);
-				Display::PutChar(_drawingChar, this->_posX, this->_posY);
-			}
-			else
-			{
-				Display::Erase(this->_oldX, this->_oldY);
-				Game::Instance->RemoveEntity(this);
-			}
-			_hasPosChanged = false;
-		}
+	}
+	if (Display::IsInMap(this->_posX, this->_posY))
+	{
+		Display::Erase(this->_oldX, this->_oldY);
+		Display::PutChar(_drawingChar, this->_posX, this->_posY);
+		Entity::Update();
+	}
+	else
+	{
+		Display::Erase(this->_oldX, this->_oldY);
+		Game::Instance->RemoveEntity(this);
 	}
 }

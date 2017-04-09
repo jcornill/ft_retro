@@ -2,6 +2,8 @@
 #include "Display.hpp"
 #include "Logger.hpp"
 #include "Projectile.hpp"
+#include "EntityChild.hpp"
+#include "LivingEntity.hpp"
 #include "Game.hpp"
 
 Player::Player(void)
@@ -57,7 +59,9 @@ void Player::Shoot()
 {
 	if (this->_frameCount % _attackSpeed == 0)
 	{
-		Projectile *proj = new Projectile(this->_posX + 1, this->_posY, '-', 2, true, true, this->_damage);
+		Projectile *proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage);
+		Game::Instance->AddEntity(proj);
+		proj = new Projectile(this->_posX + 10, this->_posY + 1, '-', 2, true, true, this->_damage);
 		Game::Instance->AddEntity(proj);
 	}
 }
@@ -65,8 +69,10 @@ void Player::Shoot()
 void Player::Colision(Entity *entity)
 {
 	Projectile* proj = dynamic_cast<Projectile*>(entity);
-	if (proj && !proj->GetAlly())
+	if (proj)
 	{
+		if (proj->GetAlly())
+			return;
 		int vDamage = proj->GetDamage();
 		Display::Erase(proj->GetPosX(), proj->GetPosY());
 		Game::Instance->RemoveEntity(proj);
@@ -80,6 +86,19 @@ void Player::Colision(Entity *entity)
 		Display::Erase(enemy->GetPosX(), enemy->GetPosY());
 		Game::Instance->RemoveEntity(enemy);
 		this->TakeDamage(vDamage);
+		return;
+	}
+	EntityChild* child = dynamic_cast<EntityChild*>(entity);
+	if (child)
+	{
+		if (child->GetAlly() == this->_ally)
+			return;
+		LivingEntity* parent = dynamic_cast<LivingEntity*>(child->GetParent());
+		int vDamage = parent->GetDamage() * 10;
+		Display::Erase(parent->GetPosX(), parent->GetPosY());
+		Game::Instance->RemoveEntity(parent);
+		this->TakeDamage(vDamage);
+		return;
 	}
 }
 
@@ -114,13 +133,6 @@ void Player::Update()
 			Game::Instance->RemoveAllEntities();
 		}
 	}
-	// MEVENT event;
-	// getmouse(&event);
-	// if (event.x != 0 && event.y != 0)
-	// {
-	// 	this->_posX = event.x;
-	// 	this->_posY = event.y;
-	// }
 	if (Display::IsInMap(this->_posX, this->_posY))
 	{
 		Display::Erase(this->_oldX, this->_oldY);
@@ -133,6 +145,7 @@ void Player::Update()
 	}
 	if (this->_hasPosChanged)
 		this->_hasPosChanged = false;
+	Entity::Update();
 }
 
 std::string Player::GetStatus() const
