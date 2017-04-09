@@ -218,9 +218,9 @@ void	Game::Spawn() {
 		int y = (rand() % (Display::sizeY - 1)) + 1;
 		if (enemyType == 0)
 		{
-			Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10), 0);
+			Enemy *enemy = new Enemy(Display::sizeX - 1, y, '-', 5, false, 50 + (this->_difficulty * 10), 10 + this->_difficulty, 250 - (this->_difficulty * 10), 0);
 			this->AddEntity(enemy);
-			this->ParseString(enemy, " |<\\/\n-\n-");
+			this->ParseString(enemy, "\\\n<|D\n -/", 1);
 /*
 			EntityChild *child = new EntityChild(enemy, '|', -1, 0);
 			this->AddEntity(child);
@@ -237,14 +237,16 @@ void	Game::Spawn() {
 		}
 		else
 		{
-			Enemy *enemy = new Enemy(Display::sizeX - 1, y, 'D', 10, false, 25 + (this->_difficulty * 5), 15 + (this->_difficulty * 2), 300 - (this->_difficulty * 5), 1);
+			Enemy *enemy = new Enemy(Display::sizeX - 1, y, '\\', 10, false, 25 + (this->_difficulty * 5), 15 + (this->_difficulty * 2), 300 - (this->_difficulty * 5), 1);
 			AddEntity(enemy);
+			this->ParseString(enemy, "\n|D\n/", 0);
+/*
 			EntityChild *child = new EntityChild(enemy, '|', -1, 0);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '\\', -1, -1);
 			this->AddEntity(child);
 			child = new EntityChild(enemy, '/', -1, 1);
-			this->AddEntity(child);
+			this->AddEntity(child); */
 		}
 	}
 	if (rand() % 10 == 1) {
@@ -268,23 +270,23 @@ void	Game::ProcessCollision() {
 	}
 }
 
-void	Game::ParseString(Entity *entity, std::string charArray) {
+void	Game::ParseString(Entity *entity, std::string charArray, int paddingStart) {
 	int row = 0;
-	int col = 0;
+	int col = 1;
 	for (int i = 0; i < (int)charArray.length(); i++) {
 		char c = charArray[i];
 		if (c == '\n') {
-			row--;
-			col = 0;
+			row++;
+			col = -paddingStart;
 			continue;
 		}
 		if (c == ' ') {
-			col--;
+			col++;
 			continue;
 		}
 		EntityChild *child = new EntityChild(entity, c, col, row);
 		this->AddEntity(child);
-		col --;
+		col++;
 
 	}
 }
