@@ -109,7 +109,7 @@ bool Player::IsChildOut()
 		Entity *en = this->entitiesChild[i];
 		if (en)
 		{
-			if (Display::IsInMap(en->GetPosX(), en->GetPosY())
+			if (Display::IsInMap(en->GetPosX(), en->GetPosY()))
 			{
 				return true;
 			}
