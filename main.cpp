@@ -4,9 +4,14 @@
 #include "Logger.hpp"
 
 int main() {
-	Display nCurse = Display(210, 42);
-	if (nCurse.IsInit())
+	Display *nCurse = new Display(210, 42);
+	if (nCurse->IsInit())
 	{
+		Game::Instance->GameLoop();
+		delete Game::Instance;
+		delete nCurse;
+//		nCurse = new Display(355, 78);
+		Game::Instance = new Game();
 		Game::Instance->GameLoop();
 	}
 	else
@@ -14,4 +19,5 @@ int main() {
 		Logger::LogToFile("Error when loading ncurses !");
 	}
 	delete Game::Instance;
+	delete nCurse;
 }
