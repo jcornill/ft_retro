@@ -87,8 +87,16 @@ void Projectile::Update()
 			this->_posX--;
 		if (this->_up == 1)
 			this->_posY++;
-		if (this->_up == -1)
+		else if (this->_up == -1)
 			this->_posY--;
+		else if (this->_up == 2)
+		{
+			if (rand() % 2 == 0)
+				this->_posY++;
+			else
+				this->_posY--;
+		}
+
 		this->_hasPosChanged = true;
 		if (_hasPosChanged)
 		{

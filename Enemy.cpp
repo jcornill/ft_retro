@@ -68,9 +68,9 @@ void Enemy::Shoot()
 		}
 		else if (this->_shootType == 1)
 		{
-			Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '/', 2, false, false, this->_damage, 1);
+			Projectile *proj = new Projectile(this->_posX - 3, this->_posY, '/', 5, false, false, this->_damage, 1);
 			Game::Instance->AddEntity(proj);
-			proj = new Projectile(this->_posX - 3, this->_posY, '\\', 2, false, false, this->_damage, -1);
+			proj = new Projectile(this->_posX - 3, this->_posY, '\\', 5, false, false, this->_damage, -1);
 			Game::Instance->AddEntity(proj);
 		}
 	}

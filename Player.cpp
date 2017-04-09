@@ -63,6 +63,22 @@ void Player::Shoot()
 		Game::Instance->AddEntity(proj);
 		proj = new Projectile(this->_posX + 10, this->_posY + 1, '-', 2, true, true, this->_damage, 0);
 		Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY + 1, '\\', 2, true, true, this->_damage, 1);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY + 1, '/', 2, true, true, this->_damage, -1);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
+		// proj = new Projectile(this->_posX + 10, this->_posY, '-', 2, true, true, this->_damage, 2);
+		// Game::Instance->AddEntity(proj);
 	}
 }
 
